@@ -10,7 +10,7 @@ function AddToCart({ productId }) {
 
   const handleClick = async () => {
     await addToCart(productId, quantity);
-    router.push("/cart");
+    //router.push("/cart");
   };
 
   return (

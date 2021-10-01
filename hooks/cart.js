@@ -16,6 +16,7 @@ export function useGetCart() {
 }
 
 export function useAddToCart() {
+  //const queryClient = useQueryClient();
   const mutation = useMutation(({ productId, quantity }) =>
     fetchJson("/api/cart", {
       method: "POST",
@@ -27,7 +28,8 @@ export function useAddToCart() {
   return {
     addToCart: async (productId, quantity) => {
       try {
-        await mutation.mutateAsync({ productId, quantity });
+        const product = await mutation.mutateAsync({ productId, quantity });
+        console.log(product);
         return true;
       } catch (err) {
         return false;

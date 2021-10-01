@@ -41,7 +41,7 @@ async function handlePostCart(req, res) {
   const { productId, quantity } = req.body;
 
   try {
-    await fetchJson(`${CMS_URL}/cart-items`, {
+    const product = await fetchJson(`${CMS_URL}/cart-items`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${jwt}`,
@@ -49,6 +49,7 @@ async function handlePostCart(req, res) {
       },
       body: JSON.stringify({ product: productId, quantity }),
     });
+    //console.log(product);
     res.status(200).json({});
   } catch (err) {
     res.status(401).end();

@@ -5,7 +5,7 @@ function Page({ title, children }) {
   return (
     <>
       <Head>
-        <title>{title}- Next Shop</title>
+        <title>{title}- MyShop</title>
       </Head>
       <header>
         <NavBar />

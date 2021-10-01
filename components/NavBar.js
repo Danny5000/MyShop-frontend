@@ -17,7 +17,7 @@ function NavBar() {
       <ul className="flex gap-2 justify-between text-sm items-center">
         <li className="text-lg font-extrabold">
           <Link href="/">
-            <a>Next Shop</a>
+            <a>MyShop</a>
           </Link>
         </li>
         <div className="flex justify-end mr-2 space-x-6 items-center">
