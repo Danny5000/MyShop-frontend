@@ -14,7 +14,7 @@ async function handleUser(req, res) {
 
     res.status(200).json({
       id: user.id,
-      name: user.username,
+      userName: user.username,
     });
   } catch (err) {
     res.status(401).end();

@@ -28,7 +28,7 @@ function NavBar() {
                   <a>Cart</a>
                 </Link>
               </li>
-              <li>{user.name}</li>
+              <li>{user.userName}</li>
               <li>
                 <button onClick={handleSignOut}>Sign Out</button>
               </li>

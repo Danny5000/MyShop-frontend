@@ -15,7 +15,7 @@ function CartTable({ cartItems }) {
       </thead>
       <tbody>
         {cartItems.data.map((cartItem) => (
-          <tr key={cartItem}>
+          <tr key={cartItem.productId}>
             <td className="px-4 py-2">{cartItem.productName}</td>
             <td className="px-4 py-2 text-right">{cartItem.productPrice}</td>
             <td className="px-4 py-2 text-right">{cartItem.quantity}</td>
