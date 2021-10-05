@@ -1,53 +1,47 @@
 import { fetchJson } from "../../lib/api";
+import jwt from "jsonwebtoken";
 
-const { CMS_URL } = process.env;
-
-function stripCartItem(cartItem) {
-  return {
-    id: cartItem.id,
-    products: {
-      id: cartItem.product.id,
-      title: cartItem.product.title,
-      price: cartItem.product.price,
-    },
-    quantity: cartItem.quantity,
-  };
-}
+const { API_URL } = process.env;
 
 async function handleGetCart(req, res) {
-  const { jwt } = req.cookies;
+  const { token } = req.cookies;
 
-  if (!jwt) {
+  if (!token) {
     res.status(401).end();
     return;
   }
 
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  const userId = decoded.id;
+
   try {
-    const cartItems = await fetchJson(`${CMS_URL}/cart-items`, {
-      headers: { Authorization: `Bearer ${jwt}` },
+    const cartItems = await fetchJson(`${API_URL}/cart/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` },
     });
-    res.status(200).json(cartItems.map(stripCartItem));
+    res.status(200).json(cartItems);
   } catch (err) {
     res.status(401).end();
   }
 }
 
 async function handlePostCart(req, res) {
-  const { jwt } = req.cookies;
-  if (!jwt) {
+  const { token } = req.cookies;
+  if (!token) {
     res.status(401).end();
     return;
   }
   const { productId, quantity } = req.body;
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  const userId = decoded.id;
 
   try {
-    const product = await fetchJson(`${CMS_URL}/cart-items`, {
+    const product = await fetchJson(`${API_URL}/cart/${userId}/${productId}`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${jwt}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ product: productId, quantity }),
+      body: JSON.stringify({ quantity }),
     });
     //console.log(product);
     res.status(200).json({});

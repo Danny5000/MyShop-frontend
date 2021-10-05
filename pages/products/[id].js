@@ -8,7 +8,7 @@ import { getProduct, getProducts } from "../../lib/products";
 export async function getStaticPaths() {
   const products = await getProducts();
   return {
-    paths: products.map((product) => ({
+    paths: products.data.map((product) => ({
       params: { id: product.id.toString() },
     })),
     fallback: "blocking",
@@ -33,24 +33,26 @@ export async function getStaticProps({ params: { id } }) {
 }
 
 function ProductPage({
-  product: { id, title, description, pictureUrl, price },
+  product: {
+    data: { id, name, description, imageUrl, price },
+  },
 }) {
   const user = useUser();
   return (
-    <Page title={title}>
+    <Page title={name}>
       <div className="flex flex-col lg:flex-row">
         <div>
           <Image
-            className="object-cover"
-            src={pictureUrl}
+            className="object-contain"
+            src={`${process.env.IMG_URL}/${imageUrl}`}
             alt=""
-            width={640}
+            width={480}
             height={480}
           />
         </div>
         <div className="flex-1 lg:ml-4">
           <p className="text-sm">{description}</p>
-          <p className="text-lg font-bold mt-2">{price}</p>
+          <p className="text-lg font-bold mt-2">${price}</p>
           {user && <AddToCart productId={id} />}
         </div>
       </div>

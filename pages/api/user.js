@@ -1,18 +1,17 @@
 import { fetchJson } from "../../lib/api";
 
-const { CMS_URL } = process.env;
-
 async function handleUser(req, res) {
-  const { jwt } = req.cookies;
+  const { token } = req.cookies;
 
-  if (!jwt) {
+  if (!token) {
     res.status(401).end();
     return;
   }
   try {
-    const user = await fetchJson(`${CMS_URL}/users/me`, {
-      headers: { Authorization: `Bearer ${jwt}` },
+    const user = await fetchJson(`${process.env.API_URL}/me`, {
+      headers: { Authorization: `Bearer ${token}` },
     });
+
     res.status(200).json({
       id: user.id,
       name: user.username,

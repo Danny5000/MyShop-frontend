@@ -1,16 +1,30 @@
-import cookie from "cookie";
+import { fetchJson } from "../../lib/api";
+async function handleLogout(req, res) {
+  const { token } = req.cookies;
 
-function handleLogout(req, res) {
-  res
-    .status(200)
-    .setHeader(
-      "Set-Cookie",
-      cookie.serialize("jwt", "", {
-        path: "/api",
-        expires: new Date(0),
-      })
-    )
-    .json({});
+  if (!token) {
+    res.status(401).end();
+    return;
+  }
+
+  try {
+    const response = await fetchJson(`${process.env.API_URL}/logout`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    console.log(response);
+
+    res.status(200).json({
+      response,
+    });
+  } catch (err) {
+    res.status(401).end();
+  }
 }
 
 export default handleLogout;

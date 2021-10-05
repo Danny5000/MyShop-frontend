@@ -6,8 +6,9 @@ const USE_QUERY_KEY = "user";
 export function useSignIn() {
   const queryClient = useQueryClient();
   const mutation = useMutation(({ email, password }) =>
-    fetchJson("/api/login", {
+    fetchJson(`${process.env.API_URL}/login`, {
       method: "POST",
+      credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     })
@@ -29,7 +30,13 @@ export function useSignIn() {
 
 export function useSignOut() {
   const queryClient = useQueryClient();
-  const mutation = useMutation(() => fetchJson("/api/logout"));
+  const mutation = useMutation(() =>
+    fetchJson(`${process.env.API_URL}/logout`, {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+    })
+  );
   return async () => {
     await mutation.mutateAsync();
     queryClient.setQueryData(USE_QUERY_KEY, undefined);

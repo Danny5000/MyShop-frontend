@@ -15,11 +15,9 @@ function CartTable({ cartItems }) {
       </thead>
       <tbody>
         {cartItems.data.map((cartItem) => (
-          <tr key={cartItem.id}>
+          <tr key={cartItem}>
             <td className="px-4 py-2">{cartItem.productName}</td>
-            <td className="px-4 py-2 text-right">
-              {formatCurrency(cartItem.productPrice)}
-            </td>
+            <td className="px-4 py-2 text-right">{cartItem.productPrice}</td>
             <td className="px-4 py-2 text-right">{cartItem.quantity}</td>
             <td className="px-4 py-2 text-right">
               {formatCurrency(cartItem.total)}
@@ -33,7 +31,7 @@ function CartTable({ cartItems }) {
           <th></th>
           <th></th>
           <th className="px-4 py-2 text-right">
-            {formatCurrency(cartItems.cartTotal)}
+            {formatCurrency(cartItems.totalPrice)}
           </th>
         </tr>
       </tfoot>

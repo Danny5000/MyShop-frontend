@@ -7,15 +7,16 @@ function ProductCard({ product }) {
       <Link href={`/products/${product.id}`}>
         <a>
           <Image
-            className="object-fill"
-            src={product.pictureUrl}
+            className="object-contain"
+            src={`${process.env.IMG_URL}/${product.imageUrl}`}
             alt=""
             width={320}
             height={240}
           />
           <div className="p-2 flex justify-between items-baseline">
-            <h2 className="text-lg font-bold">{product.title}</h2>
-            <span>{product.price}</span>
+            <h2 className="text-lg font-bold">{product.name}</h2>
+            <span className="font-medium">Quantity: {product.quantity}</span>
+            <span className="font-medium">Price: ${product.price}</span>
           </div>
         </a>
       </Link>
