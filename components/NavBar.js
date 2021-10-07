@@ -13,7 +13,7 @@ function NavBar() {
   };
 
   return (
-    <nav className="px-2 py-1">
+    <nav className="px-2 py-1 bg-gray-200">
       <ul className="flex gap-2 justify-between text-sm items-center">
         <li className="text-lg font-extrabold">
           <Link href="/">
