@@ -1,5 +1,5 @@
 import Image from "next/image";
-import AddToCart from "../../components/AddToCart";
+import AddToCart from "../../components/CartButtons/AddToCart";
 import Page from "../../components/Page";
 import { useUser } from "../../hooks/user";
 import { ApiError } from "../../lib/api";

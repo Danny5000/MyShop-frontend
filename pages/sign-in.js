@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import Button from "../components/Button";
 import Field from "../components/Field";
 import Input from "../components/Input";
 import Page from "../components/Page";
@@ -53,9 +52,9 @@ function SignInPage() {
         </Field>
         {signInError && <p className="text-red-700">Invalid Credentials</p>}
         {signInLoading && <p>Loading...</p>}
-        <Button disabled={signInLoading} type="submit">
+        <button className="buttonGreen" disabled={signInLoading} type="submit">
           Sign In
-        </Button>
+        </button>
       </form>
     </Page>
   );

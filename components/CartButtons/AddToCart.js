@@ -1,7 +1,6 @@
 const { useState } = require("react");
 import { useRouter } from "next/router";
-import Button from "./Button";
-import { useAddToCart } from "../hooks/cart";
+import { useAddToCart } from "../../hooks/cart";
 
 function AddToCart({ productId }) {
   const router = useRouter();
@@ -25,7 +24,9 @@ function AddToCart({ productId }) {
       {addToCartLoading ? (
         <p>Loading...</p>
       ) : (
-        <Button onClick={handleClick}>Add to cart</Button>
+        <button className="buttonGreen" onClick={handleClick}>
+          Add to cart
+        </button>
       )}
     </div>
   );
