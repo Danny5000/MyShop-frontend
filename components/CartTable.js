@@ -1,4 +1,5 @@
 import DeleteFromCart from "./CartButtons/DeleteFromCart";
+import Link from "next/link";
 
 function formatCurrency(value) {
   return "$" + value.toFixed(2);
@@ -22,7 +23,11 @@ function CartTable({ cartItems }) {
         <tbody>
           {cartItems.data.map((cartItem) => (
             <tr key={cartItem.productId}>
-              <td className="px-4 py-2">{cartItem.productName}</td>
+              <td className="px-4 py-2 text-blue-500 hover:text-purple-500">
+                <Link href={`/products/${cartItem.productId}`}>
+                  {cartItem.productName}
+                </Link>
+              </td>
               <td className="px-4 py-2 text-right">
                 {formatCurrency(cartItem.productPrice)}
               </td>
