@@ -1,20 +1,20 @@
 import ProfilePage from "../../components/PageTemplates/ProfilePage";
 import { ApiError } from "../../lib/api";
-import { getUserByUserName, getUsers } from "../../lib/users";
+import { getUser, getUsers } from "../../lib/users";
 
 export async function getStaticPaths() {
   const users = await getUsers();
   return {
     paths: users.userData.map((user) => ({
-      params: { userName: user.userName.toString() },
+      params: { id: user.id.toString() },
     })),
     fallback: "blocking",
   };
 }
 
-export async function getStaticProps({ params: { userName } }) {
+export async function getStaticProps({ params: { id } }) {
   try {
-    const user = await getUserByUserName(userName);
+    const user = await getUser(id);
     return {
       props: {
         user,
@@ -22,7 +22,7 @@ export async function getStaticProps({ params: { userName } }) {
       revalidate: parseInt(process.env.REVALIDATE_SECONDS),
     };
   } catch (err) {
-    if (err instanceof ApiError && err.status == 404) {
+    if ((err instanceof ApiError && err.status == 404) || 500) {
       return { notFound: true };
     }
     throw err;

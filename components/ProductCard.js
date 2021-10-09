@@ -2,8 +2,13 @@ import Link from "next/link";
 import Image from "next/image";
 
 function ProductCard({ product }) {
+  const userName = product.userData[0].userName;
   return (
     <div className="border w-80 shadow hover:shadow-lg">
+      <span className="pl-2 pr-2 bg-gray-100 text-blue-900 flex justify-between font-medium">
+        Posted By: {userName}
+        <Link href={`/users/${product.user}`}>View Profile</Link>
+      </span>
       <Link href={`/products/${product.id}`}>
         <a>
           <Image

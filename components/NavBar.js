@@ -29,7 +29,7 @@ function NavBar() {
                 </Link>
               </li>
               <li>
-                <Link href={`/users/${user.userName}`}>{user.userName}</Link>
+                <Link href={`/users/${user.id}`}>{user.userName}</Link>
               </li>
               <li>
                 <button onClick={handleSignOut}>Sign Out</button>
