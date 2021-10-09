@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import AddToCart from "../../components/CartButtons/AddToCart";
 import Page from "../../components/PageTemplates/Page";
 import { useUser } from "../../hooks/user";
@@ -34,7 +35,7 @@ export async function getStaticProps({ params: { id } }) {
 
 function ProductPage({
   product: {
-    data: { id, name, description, imageUrl, price, quantity },
+    data: { id, name, description, imageUrl, price, quantity, userData },
   },
 }) {
   const user = useUser();
@@ -51,7 +52,12 @@ function ProductPage({
           />
         </div>
         <div className="flex-1 lg:ml-4">
-          <p className="text-sm">{description}</p>
+          <p className="text-sm pb-2">{description}</p>
+          <p className="text-sm text-blue-900 hover:text-purple-700">
+            <Link href={`/users/${userData[0].userName}`}>
+              {`Seller: ${userData[0].userName}`}
+            </Link>
+          </p>
           <div className="inline-flex space-x-7">
             <p className="text-lg font-bold mt-2">${price}</p>
             <p className="text-lg mt-2">Quantity: {quantity}</p>

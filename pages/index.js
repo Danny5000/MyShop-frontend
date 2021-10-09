@@ -1,5 +1,5 @@
 import { getProducts } from "../lib/products";
-import ProductCard from "../components/ProductCard";
+import ProductCard from "../components/ProductCards/ProductCard";
 import Page from "../components/PageTemplates/Page";
 
 export async function getStaticProps() {

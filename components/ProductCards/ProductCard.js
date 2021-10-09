@@ -7,7 +7,9 @@ function ProductCard({ product }) {
     <div className="border w-80 shadow hover:shadow-lg">
       <span className="pl-2 pr-2 bg-gray-100 text-blue-900 flex justify-between font-medium">
         Posted By: {userName}
-        <Link href={`/users/${product.user}`}>View Profile</Link>
+        <Link href={`/users/${product.userData[0].userName}`}>
+          View Profile
+        </Link>
       </span>
       <Link href={`/products/${product.id}`}>
         <a>
