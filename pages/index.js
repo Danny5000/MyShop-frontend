@@ -1,6 +1,6 @@
 import { getProducts } from "../lib/products";
 import ProductCard from "../components/ProductCard";
-import Page from "../components/Page";
+import Page from "../components/PageTemplates/Page";
 
 export async function getStaticProps() {
   const products = await getProducts();

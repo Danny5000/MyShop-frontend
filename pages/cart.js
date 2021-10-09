@@ -1,4 +1,4 @@
-import Page from "../components/Page";
+import Page from "../components/PageTemplates/Page";
 import CartTable from "../components/CartTable";
 import { useGetCart } from "../hooks/cart";
 import { useUser } from "../hooks/user";

@@ -28,7 +28,9 @@ function NavBar() {
                   <a>Cart</a>
                 </Link>
               </li>
-              <li>{user.userName}</li>
+              <li>
+                <Link href={`/users/${user.userName}`}>{user.userName}</Link>
+              </li>
               <li>
                 <button onClick={handleSignOut}>Sign Out</button>
               </li>

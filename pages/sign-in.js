@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Field from "../components/Field";
 import Input from "../components/Input";
-import Page from "../components/Page";
+import Page from "../components/PageTemplates/Page";
 import { useSignIn, useUser } from "../hooks/user";
 import { useEffect } from "react";
 

@@ -1,6 +1,6 @@
 import Head from "next/head";
-import Title from "../components/Title";
-import NavBar from "./NavBar";
+import Title from "../Title";
+import NavBar from "../NavBar";
 function Page({ title, children }) {
   return (
     <>
@@ -11,7 +11,7 @@ function Page({ title, children }) {
         <NavBar />
       </header>
       <main className="px-6 py-4">
-        <Title>{title}</Title>
+        <Title>{title}'s Profile</Title>
         {children}
       </main>
     </>

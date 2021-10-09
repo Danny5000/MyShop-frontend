@@ -52,7 +52,7 @@ export function useDeleteItemFromCart() {
         return false;
       }
     },
-    deleteFromError: mutation.isError,
+    deleteFromCartError: mutation.isError,
     deleteFromCartLoading: mutation.isLoading,
   };
 }
