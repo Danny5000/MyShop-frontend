@@ -5,31 +5,40 @@ import Input from "../components/Input";
 import Page from "../components/PageTemplates/Page";
 import { useSignUp, useUser } from "../hooks/user";
 import { useEffect } from "react";
+import notify from "../utils/toasts";
 
 function SignInPage() {
   const router = useRouter();
-  const [allValues, setAllValues] = useState({
+  const [formData, setFormData] = useState({
     name: "",
     userName: "",
     email: "",
     password: "",
+    password2: "",
+    passErr: "",
   });
   const { signUp, signUpError, signUpLoading, errMessage } = useSignUp();
   const user = useUser();
 
   const changeHandler = (e) => {
-    setAllValues((prevValues) => {
+    setFormData((prevValues) => {
       return { ...prevValues, [e.target.name]: e.target.value };
     });
   };
 
+  const { name, userName, email, password, password2 } = formData;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const valid = await signUp(allValues);
+    if (password !== password2) {
+      notify("Please make sure the passwords you entered match.");
+    } else {
+      const valid = await signUp({ name, userName, email, password });
 
-    if (valid) {
-      router.push("/");
+      if (valid) {
+        router.push("/");
+      }
     }
   };
 
@@ -75,6 +84,15 @@ function SignInPage() {
             placeholder="At least 8 characters long."
             required
             name="password"
+            onChange={changeHandler}
+          />
+        </Field>
+        <Field label="Confirm Password">
+          <Input
+            type="password"
+            placeholder="At least 8 characters long."
+            required
+            name={"password2"}
             onChange={changeHandler}
           />
         </Field>
