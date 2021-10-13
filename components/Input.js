@@ -1,7 +1,9 @@
-function Input({ type, required, value, onChange }) {
+function Input({ name, placeholder, type, required, value, onChange }) {
   return (
     <input
       type={type}
+      name={name}
+      placeholder={placeholder}
       required={required}
       value={value}
       onChange={onChange}

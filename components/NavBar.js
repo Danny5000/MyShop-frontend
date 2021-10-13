@@ -36,11 +36,18 @@ function NavBar() {
               </li>
             </>
           ) : (
-            <li>
-              <Link href="/sign-in">
-                <a>Sign In</a>
-              </Link>
-            </li>
+            <>
+              <li>
+                <Link href="/sign-in">
+                  <a>Sign In</a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/sign-up">
+                  <a>Register</a>
+                </Link>
+              </li>
+            </>
           )}
         </div>
       </ul>

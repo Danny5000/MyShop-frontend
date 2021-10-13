@@ -12,6 +12,8 @@ function ProductCardProfile({ product }) {
             alt=""
             width={250}
             height={150}
+            placeholder="blur"
+            blurDataURL={`${process.env.IMG_URL}/${product.imageUrl}`}
           />
           <div className="p-2 text-xs flex justify-between items-baseline">
             <h2 className="font-bold">{product.name}</h2>

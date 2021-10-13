@@ -49,6 +49,8 @@ function ProductPage({
             alt=""
             width={480}
             height={480}
+            placeholder="blur"
+            blurDataURL={`${process.env.IMG_URL}/${imageUrl}`}
           />
         </div>
         <div className="flex-1 lg:ml-4">

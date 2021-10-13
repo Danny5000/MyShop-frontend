@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { fetchJson } from "../lib/api";
+import axios from "axios";
 
 const USE_QUERY_KEY = "user";
 
@@ -25,6 +26,34 @@ export function useSignIn() {
     },
     signInError: mutation.isError,
     signInLoading: mutation.isLoading,
+  };
+}
+
+export function useSignUp() {
+  const queryClient = useQueryClient();
+  const mutation = useMutation((allValues) =>
+    axios.post(`${process.env.API_URL}/register`, allValues, {
+      withCredentials: true,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(allValues),
+    })
+  );
+  return {
+    signUp: async (allValues) => {
+      try {
+        await mutation.mutateAsync(allValues, {
+          onSuccess: (result) => {
+            queryClient.setQueryData(USE_QUERY_KEY, result.data);
+          },
+        });
+        return true;
+      } catch (err) {
+        return false;
+      }
+    },
+    errMessage: mutation.error?.response?.data?.message,
+    signUpError: mutation.isError,
+    signUpLoading: mutation.isLoading,
   };
 }
 
