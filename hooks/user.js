@@ -88,6 +88,7 @@ export function useUser() {
       try {
         const result = await fetchJson("/api/tokenAndUserId");
         const token = result.token;
+
         return await fetchJson(`${process.env.API_URL}/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });

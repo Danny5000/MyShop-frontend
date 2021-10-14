@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import DeleteProduct from "../ProductButtons/DeleteProduct";
 import { useUser } from "../../hooks/user";
 
 function ProductCardProfile({ product }) {
@@ -26,9 +27,7 @@ function ProductCardProfile({ product }) {
       </Link>
       {user?.id === product.user ? (
         <div className="flex justify-between pl-2 pr-2">
-          <button className="buttonRed" type="submit">
-            Delete
-          </button>
+          <DeleteProduct productId={product.id} />
           <button className="buttonYellow" type="submit">
             Edit
           </button>

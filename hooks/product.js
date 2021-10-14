@@ -35,3 +35,31 @@ export function useAddProduct() {
     addProductLoading: mutation.isLoading,
   };
 }
+
+export function useDeleteProduct() {
+  const mutation = useMutation(({ productId, token }) =>
+    axios.delete(`${API_URL}/product/${productId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  );
+
+  return {
+    deleteProduct: async (productId) => {
+      try {
+        const result = await axios.get("/api/tokenAndUserId");
+        const token = result.data.token;
+
+        await mutation.mutateAsync({ productId, token });
+        return true;
+      } catch (err) {
+        return false;
+      }
+    },
+    deleteProductSuccess: mutation.isSuccess,
+    deleteProductError: mutation.isError,
+    deleteProductLoading: mutation.isLoading,
+  };
+}
