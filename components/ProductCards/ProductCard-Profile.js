@@ -1,7 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useUser } from "../../hooks/user";
 
 function ProductCardProfile({ product }) {
+  const user = useUser();
   return (
     <div className="border w-60 shadow hover:shadow-lg">
       <Link href={`/products/${product.id}`}>
@@ -22,6 +24,16 @@ function ProductCardProfile({ product }) {
           </div>
         </a>
       </Link>
+      {user?.id === product.user ? (
+        <div className="flex justify-between pl-2 pr-2">
+          <button className="buttonRed" type="submit">
+            Delete
+          </button>
+          <button className="buttonYellow" type="submit">
+            Edit
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 }

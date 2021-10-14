@@ -15,11 +15,9 @@ function SignInPage() {
     email: "",
     password: "",
     password2: "",
-    passErr: "",
   });
   const { signUp, signUpError, signUpLoading, errMessage } = useSignUp();
   const user = useUser();
-
   const changeHandler = (e) => {
     setFormData((prevValues) => {
       return { ...prevValues, [e.target.name]: e.target.value };
@@ -92,7 +90,7 @@ function SignInPage() {
             type="password"
             placeholder="At least 8 characters long."
             required
-            name={"password2"}
+            name="password2"
             onChange={changeHandler}
           />
         </Field>

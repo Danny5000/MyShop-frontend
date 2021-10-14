@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 
 function NavBar() {
   const user = useUser();
+
   const router = useRouter();
   const signOut = useSignOut();
 
@@ -23,6 +24,11 @@ function NavBar() {
         <div className="flex justify-end mr-2 space-x-6 items-center">
           {user ? (
             <>
+              <li>
+                <Link href="/add-product">
+                  <a>Sell a Product</a>
+                </Link>
+              </li>
               <li>
                 <Link href="/cart">
                   <a>Cart</a>
