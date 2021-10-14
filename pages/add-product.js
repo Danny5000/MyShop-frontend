@@ -12,15 +12,20 @@ function AddProductPage() {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    imageUrl: null,
+    imageUrl: "",
     price: 0.0,
     quantity: 0,
   });
 
   const [file, setFile] = useState("");
 
-  const { addProduct, addProductError, addProductLoading, errMessage } =
-    useAddProduct();
+  const {
+    addProduct,
+    addProductError,
+    addProductLoading,
+    errMessage,
+    addProductSuccess,
+  } = useAddProduct();
 
   const user = useUser();
 
@@ -41,13 +46,15 @@ function AddProductPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await addProduct(formData);
-    Array.from(document.querySelectorAll("input")).forEach(
-      (input) => (input.value = "")
-    );
-    Array.from(document.querySelectorAll("textarea")).forEach(
-      (input) => (input.value = "")
-    );
+    const res = await addProduct(formData);
+    if (res) {
+      Array.from(document.querySelectorAll("input")).forEach(
+        (input) => (input.value = "")
+      );
+      Array.from(document.querySelectorAll("textarea")).forEach(
+        (input) => (input.value = "")
+      );
+    }
   };
 
   useEffect(() => {
@@ -60,6 +67,9 @@ function AddProductPage() {
 
   return (
     <Page title="Sell a Product">
+      {addProductSuccess && (
+        <p className="text-green-600">{"Product added successfully."}</p>
+      )}
       <form onSubmit={handleSubmit}>
         <Field label="Product Name">
           <Input

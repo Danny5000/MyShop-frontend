@@ -23,13 +23,14 @@ export function useAddProduct() {
         for (const property in formValues) {
           data.append(`${property}`, formValues[property]);
         }
-        await mutation.mutateAsync({ data, token });
+        const res = await mutation.mutateAsync({ data, token });
         return true;
       } catch (err) {
         return false;
       }
     },
     errMessage: mutation.error?.response?.data?.message,
+    addProductSuccess: mutation.isSuccess,
     addProductError: mutation.isError,
     addProductLoading: mutation.isLoading,
   };

@@ -59,15 +59,24 @@ export function useSignUp() {
 
 export function useSignOut() {
   const queryClient = useQueryClient();
-  const mutation = useMutation(() =>
+  const mutation = useMutation((token) =>
     fetchJson(`${process.env.API_URL}/logout`, {
       method: "POST",
       credentials: "include",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
     })
   );
   return async () => {
-    await mutation.mutateAsync();
+    try {
+      const result = await fetchJson("/api/tokenAndUserId");
+      const token = result.token;
+      await mutation.mutateAsync(token);
+    } catch (err) {
+      return false;
+    }
     queryClient.setQueryData(USE_QUERY_KEY, undefined);
   };
 }
@@ -77,7 +86,11 @@ export function useUser() {
     USE_QUERY_KEY,
     async () => {
       try {
-        return await fetchJson("/api/user");
+        const result = await fetchJson("/api/tokenAndUserId");
+        const token = result.token;
+        return await fetchJson(`${process.env.API_URL}/me`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
       } catch (err) {
         return undefined;
       }
@@ -87,6 +100,5 @@ export function useUser() {
       staleTime: 30_000,
     }
   );
-
   return query.data;
 }

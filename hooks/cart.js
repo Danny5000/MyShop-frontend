@@ -17,16 +17,18 @@ export function useAddToCart() {
     })
   );
 
-  console.log(mutation);
-
   return {
     addToCart: async (productId, quantity) => {
       try {
         const result = await fetchJson("/api/tokenAndUserId");
-        const token = result.data.token;
-        const userId = result.data.userId;
-        console.log(token, userId);
-        await mutation.mutateAsync({ productId, quantity, token, userId });
+        const token = result.token;
+        const userId = result.userId;
+        await mutation.mutateAsync({
+          productId,
+          quantity,
+          token,
+          userId,
+        });
         return true;
       } catch (err) {
         return false;
@@ -39,18 +41,24 @@ export function useAddToCart() {
 
 export function useDeleteItemFromCart() {
   const queryClient = useQueryClient();
-  const mutation = useMutation(({ productId }) =>
-    fetchJson("/api/cart", {
+  const mutation = useMutation(({ productId, token, userId }) =>
+    fetchJson(`${API_URL}/cart/${userId}/${productId}`, {
       method: "DELETE",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ productId }),
     })
   );
   return {
     removeFromCart: async (productId) => {
       try {
+        const result = await fetchJson("/api/tokenAndUserId");
+        const token = result.token;
+        const userId = result.userId;
         await mutation.mutateAsync(
-          { productId },
+          { productId, token, userId },
           {
             onSuccess: (data) => {
               queryClient.setQueryData(USE_QUERY_KEY, data);
@@ -72,7 +80,12 @@ export function useGetCart() {
     USE_QUERY_KEY,
     async () => {
       try {
-        return await fetchJson("/api/cart");
+        const result = await fetchJson("/api/tokenAndUserId");
+        const userId = result.userId;
+        const token = result.token;
+        return await fetchJson(`${API_URL}/cart/${userId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
       } catch (err) {
         return undefined;
       }
