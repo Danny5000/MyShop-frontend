@@ -2,8 +2,8 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import Modal from "react-modal";
 import { useUpdateProduct } from "../../hooks/product";
-import Field from "../../components/Field";
-import Input from "../../components/Input";
+import Field from "../Field";
+import Input from "../Input";
 
 const customStyles = {
   content: {
@@ -18,7 +18,7 @@ const customStyles = {
 
 Modal.setAppElement("#__next");
 
-function UpdateProduct({ productId }) {
+function UpdateProduct({ productId, productData }) {
   const {
     updateProduct,
     updateProductLoading,
@@ -29,13 +29,7 @@ function UpdateProduct({ productId }) {
 
   const router = useRouter();
 
-  const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    imageUrl: "",
-    price: "",
-    quantity: "",
-  });
+  const [formData, setFormData] = useState(productData);
 
   const [file, setFile] = useState("");
 
@@ -45,13 +39,7 @@ function UpdateProduct({ productId }) {
 
   formData.imageUrl = file;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    updateProduct(formData, productId);
-  };
-
   const changeHandler = (e) => {
-    console.log(formData);
     setFormData((prevValues) => {
       return {
         ...prevValues,
@@ -60,13 +48,16 @@ function UpdateProduct({ productId }) {
     });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    updateProduct(formData, productId);
+  };
+
   const [modalIsOpen, setIsOpen] = useState(false);
 
   function openModal() {
     setIsOpen(true);
   }
-
-  function afterOpenModal() {}
 
   function closeModal() {
     setIsOpen(false);
@@ -81,18 +72,19 @@ function UpdateProduct({ productId }) {
         </button>
         <Modal
           isOpen={modalIsOpen}
-          onAfterOpen={afterOpenModal}
           onRequestClose={closeModal}
           style={customStyles}
           contentLabel="Update Product Modal"
         >
-          <div className="flex justify-center">Update Product</div>
+          <div className="flex justify-center pb-4">Update Product</div>
+          <p className="pb-2">Modify the fields you wish to update.</p>
           {updateProductSuccess && (
             <p className="text-green-600">{"Product updated."}</p>
           )}
           <form onSubmit={handleSubmit}>
             <Field label="Product Name">
               <Input
+                value={formData.name}
                 placeholder="Enter the product name."
                 name="name"
                 onChange={changeHandler}
@@ -100,6 +92,7 @@ function UpdateProduct({ productId }) {
             </Field>
             <Field label="Product Description">
               <textarea
+                value={formData.description}
                 className="border rounded py-1 w-80"
                 name="description"
                 onChange={changeHandler}
@@ -111,6 +104,7 @@ function UpdateProduct({ productId }) {
             <Field label="Product Price">
               <input
                 className="border rounded px-3 py-1 mr-2 w-28"
+                value={formData.price}
                 name="price"
                 onChange={changeHandler}
               />
@@ -118,6 +112,7 @@ function UpdateProduct({ productId }) {
             <Field label="Product Quantity">
               <input
                 className="border rounded px-3 py-1 mr-2 w-16 text-right"
+                value={formData.quantity}
                 type="number"
                 min="1"
                 name="quantity"

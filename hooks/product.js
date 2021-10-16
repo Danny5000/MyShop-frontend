@@ -21,7 +21,6 @@ export function useAddProduct() {
         const data = new FormData();
 
         for (const property in formValues) {
-          console.log(formValues[property]);
           data.append(`${property}`, formValues[property]);
         }
         const res = await mutation.mutateAsync({ data, token });

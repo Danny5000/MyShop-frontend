@@ -1,4 +1,4 @@
-import DeleteFromCart from "./CartButtons/DeleteFromCart";
+import DeleteFromCart from "./CartActions/DeleteFromCart";
 import Link from "next/link";
 
 function formatCurrency(value) {

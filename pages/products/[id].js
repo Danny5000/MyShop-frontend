@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import AddToCart from "../../components/CartButtons/AddToCart";
+import AddToCart from "../../components/CartActions/AddToCart";
 import Page from "../../components/PageTemplates/Page";
 import { useUser } from "../../hooks/user";
 import { ApiError } from "../../lib/api";
