@@ -21,6 +21,7 @@ export function useAddProduct() {
         const data = new FormData();
 
         for (const property in formValues) {
+          console.log(formValues[property]);
           data.append(`${property}`, formValues[property]);
         }
         const res = await mutation.mutateAsync({ data, token });
@@ -61,5 +62,42 @@ export function useDeleteProduct() {
     deleteProductSuccess: mutation.isSuccess,
     deleteProductError: mutation.isError,
     deleteProductLoading: mutation.isLoading,
+  };
+}
+
+export function useUpdateProduct() {
+  const mutation = useMutation(({ data, productId, token }) =>
+    axios.put(`${API_URL}/product/${productId}`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  );
+
+  return {
+    updateProduct: async (formValues, productId) => {
+      try {
+        const result = await axios.get("/api/tokenAndUserId");
+        const token = result.data.token;
+
+        const data = new FormData();
+
+        for (const property in formValues) {
+          if (formValues[property] !== "") {
+            data.append(`${property}`, formValues[property]);
+          }
+        }
+
+        await mutation.mutateAsync({ data, productId, token });
+        return true;
+      } catch (err) {
+        return false;
+      }
+    },
+    errMessage: mutation.error?.response?.data?.message,
+    updateProductSuccess: mutation.isSuccess,
+    updateProductError: mutation.isError,
+    updateProductLoading: mutation.isLoading,
   };
 }

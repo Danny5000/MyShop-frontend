@@ -13,8 +13,8 @@ function AddProductPage() {
     name: "",
     description: "",
     imageUrl: "",
-    price: 0.0,
-    quantity: 0,
+    price: "",
+    quantity: "",
   });
 
   const [file, setFile] = useState("");
