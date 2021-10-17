@@ -19,6 +19,9 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params: { id } }) {
   try {
     const product = await getProduct(id);
+    if (product.data === null) {
+      return { notFound: true };
+    }
     return {
       props: {
         product,

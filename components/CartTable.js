@@ -1,5 +1,6 @@
 import DeleteFromCart from "./CartActions/DeleteFromCart";
 import Link from "next/link";
+import UpdateCart from "./CartActions/UpdateCart";
 
 function formatCurrency(value) {
   return "$" + value.toFixed(2);
@@ -24,14 +25,23 @@ function CartTable({ cartItems }) {
           {cartItems.data.map((cartItem) => (
             <tr key={cartItem.productId}>
               <td className="px-4 py-2 text-blue-500 hover:text-purple-500">
-                <Link href={`/products/${cartItem.productId}`}>
+                <Link
+                  href={`/products/${cartItem.productId}`}
+                  as={`/products/${cartItem.productId}`}
+                  to={`/products/${cartItem.productId}`}
+                >
                   {cartItem.productName}
                 </Link>
               </td>
               <td className="px-4 py-2 text-right">
                 {formatCurrency(cartItem.productPrice)}
               </td>
-              <td className="px-4 py-2 text-right">{cartItem.quantity}</td>
+              <td className="px-4 py-2 text-right">
+                <UpdateCart
+                  productId={cartItem.productId}
+                  quantity={cartItem.quantity}
+                />
+              </td>
               <td className="px-4 py-2 text-right">
                 {formatCurrency(cartItem.total)}
               </td>

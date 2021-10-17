@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { fetchJson } from "../lib/api";
-//import axios from "axios";
+import axios from "axios";
 
 const USE_QUERY_KEY = "cartItems";
 const { API_URL } = process.env;
@@ -36,6 +36,40 @@ export function useAddToCart() {
     },
     addToCartError: mutation.isError,
     addToCartLoading: mutation.isLoading,
+  };
+}
+
+export function useUpdateCart() {
+  const mutation = useMutation(({ productId, quantity, token, userId }) =>
+    axios.put(
+      `${API_URL}/cart/${userId}/${productId}`,
+      { quantity },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    )
+  );
+
+  return {
+    updateCart: async (productId, quantity) => {
+      try {
+        const result = await axios.get("/api/tokenAndUserId");
+        const token = result.data.token;
+        const userId = result.data.userId;
+        await mutation.mutateAsync({
+          productId,
+          quantity,
+          token,
+          userId,
+        });
+        return true;
+      } catch (err) {
+        return false;
+      }
+    },
   };
 }
 
