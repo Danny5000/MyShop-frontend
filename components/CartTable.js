@@ -55,7 +55,7 @@ function CartTable({ cartItems }) {
             <th></th>
             <th></th>
             <th className="px-4 py-2 text-right">
-              {formatCurrency(cartItems.totalPrice)}
+              {formatCurrency(cartItems.cartTotal)}
             </th>
           </tr>
         </tfoot>

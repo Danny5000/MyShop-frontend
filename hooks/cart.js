@@ -6,6 +6,7 @@ const USE_QUERY_KEY = "cartItems";
 const { API_URL } = process.env;
 
 export function useAddToCart() {
+  const queryClient = useQueryClient();
   const mutation = useMutation(({ productId, quantity, token, userId }) =>
     fetchJson(`${API_URL}/cart/${userId}/${productId}`, {
       method: "POST",
@@ -23,12 +24,19 @@ export function useAddToCart() {
         const result = await fetchJson("/api/tokenAndUserId");
         const token = result.token;
         const userId = result.userId;
-        await mutation.mutateAsync({
-          productId,
-          quantity,
-          token,
-          userId,
-        });
+        await mutation.mutateAsync(
+          {
+            productId,
+            quantity,
+            token,
+            userId,
+          },
+          {
+            onSuccess: (res) => {
+              queryClient.setQueryData(USE_QUERY_KEY, res);
+            },
+          }
+        );
         return true;
       } catch (err) {
         return false;
@@ -78,6 +86,8 @@ export function useUpdateCart() {
         return false;
       }
     },
+    updateCartError: mutation.isError,
+    errMessage: mutation.error?.response?.data?.message,
   };
 }
 
