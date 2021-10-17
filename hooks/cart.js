@@ -40,6 +40,7 @@ export function useAddToCart() {
 }
 
 export function useUpdateCart() {
+  const queryClient = useQueryClient();
   const mutation = useMutation(({ productId, quantity, token, userId }) =>
     axios.put(
       `${API_URL}/cart/${userId}/${productId}`,
@@ -59,12 +60,19 @@ export function useUpdateCart() {
         const result = await axios.get("/api/tokenAndUserId");
         const token = result.data.token;
         const userId = result.data.userId;
-        await mutation.mutateAsync({
-          productId,
-          quantity,
-          token,
-          userId,
-        });
+        await mutation.mutateAsync(
+          {
+            productId,
+            quantity,
+            token,
+            userId,
+          },
+          {
+            onSuccess: (res) => {
+              queryClient.setQueryData(USE_QUERY_KEY, res.data);
+            },
+          }
+        );
         return true;
       } catch (err) {
         return false;
