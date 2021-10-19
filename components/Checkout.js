@@ -1,12 +1,10 @@
-import DeleteFromCart from "./CartActions/DeleteFromCart";
 import Link from "next/link";
-import UpdateCart from "./CartActions/UpdateCart";
 
 function formatCurrency(value) {
   return "$" + value.toFixed(2);
 }
 
-function CartTable({ cartItems }) {
+function Checkout({ cartItems }) {
   return (
     <>
       {cartItems.message && (
@@ -36,16 +34,10 @@ function CartTable({ cartItems }) {
               <td className="px-4 py-2 text-right">
                 {formatCurrency(cartItem.productPrice)}
               </td>
-              <td className="px-4 py-2 text-right">
-                <UpdateCart
-                  productId={cartItem.productId}
-                  quantity={cartItem.quantity}
-                />
-              </td>
+              <td className="px-4 py-2 text-center">{cartItem.quantity}</td>
               <td className="px-4 py-2 text-right">
                 {formatCurrency(cartItem.total)}
               </td>
-              <td>{<DeleteFromCart productId={cartItem.productId} />}</td>
             </tr>
           ))}
         </tbody>
@@ -62,14 +54,14 @@ function CartTable({ cartItems }) {
       </table>
       <div className="flex px-4">
         <button className="buttonGreen mr-2">
-          <Link href={"/checkout"}>Checkout</Link>
+          <Link href={"/payment"}>Pay</Link>
         </button>
         <button className="buttonGreen">
-          <Link href={"/"}>Back</Link>
+          <Link href={"/cart"}>Back</Link>
         </button>
       </div>
     </>
   );
 }
 
-export default CartTable;
+export default Checkout;
