@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PostCheckout from "./CheckoutActions/PostCheckout";
 
 function formatCurrency(value) {
   return "$" + value.toFixed(2);
@@ -20,7 +21,7 @@ function Checkout({ cartItems }) {
           </tr>
         </thead>
         <tbody>
-          {cartItems.data.map((cartItem) => (
+          {cartItems.data.data.map((cartItem) => (
             <tr key={cartItem.productId}>
               <td className="px-4 py-2 text-blue-500 hover:text-purple-500">
                 <Link
@@ -47,18 +48,16 @@ function Checkout({ cartItems }) {
             <th></th>
             <th></th>
             <th className="px-4 py-2 text-right">
-              {formatCurrency(cartItems.cartTotal)}
+              {formatCurrency(cartItems.data.cartTotal)}
             </th>
           </tr>
         </tfoot>
       </table>
       <div className="flex px-4">
-        <button className="buttonGreen mr-2">
-          <Link href={"/payment"}>Pay</Link>
-        </button>
-        <button className="buttonGreen">
-          <Link href={"/cart"}>Back</Link>
-        </button>
+        <PostCheckout />
+        <Link href={"/cart"}>
+          <button className="buttonGreen">Back</button>
+        </Link>
       </div>
     </>
   );

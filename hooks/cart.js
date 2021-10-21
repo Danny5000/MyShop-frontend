@@ -8,22 +8,26 @@ const { API_URL } = process.env;
 export function useAddToCart() {
   const queryClient = useQueryClient();
   const mutation = useMutation(({ productId, quantity, token, userId }) =>
-    fetchJson(`${API_URL}/cart/${userId}/${productId}`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ quantity }),
-    })
+    axios.post(
+      `${API_URL}/cart/${userId}/${productId}`,
+      { quantity },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    )
   );
+
+  console.log(mutation);
 
   return {
     addToCart: async (productId, quantity) => {
       try {
-        const result = await fetchJson("/api/tokenAndUserId");
-        const token = result.token;
-        const userId = result.userId;
+        const result = await axios.get("/api/tokenAndUserId");
+        const token = result.data.token;
+        const userId = result.data.userId;
         await mutation.mutateAsync(
           {
             productId,
@@ -42,6 +46,7 @@ export function useAddToCart() {
         return false;
       }
     },
+    errMessage: mutation.error?.response?.data?.errMessage,
     addToCartError: mutation.isError,
     addToCartLoading: mutation.isLoading,
   };
@@ -76,8 +81,8 @@ export function useUpdateCart() {
             userId,
           },
           {
-            onSuccess: (res) => {
-              queryClient.setQueryData(USE_QUERY_KEY, res.data);
+            onSuccess: (data) => {
+              queryClient.setQueryData(USE_QUERY_KEY, data);
             },
           }
         );
@@ -87,20 +92,18 @@ export function useUpdateCart() {
       }
     },
     updateCartError: mutation.isError,
-    errMessage: mutation.error?.response?.data?.message,
+    errMessage: mutation.error?.response?.data?.errMessage,
   };
 }
 
 export function useDeleteItemFromCart() {
   const queryClient = useQueryClient();
   const mutation = useMutation(({ productId, token, userId }) =>
-    fetchJson(`${API_URL}/cart/${userId}/${productId}`, {
-      method: "DELETE",
+    axios.delete(`${API_URL}/cart/${userId}/${productId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ productId }),
     })
   );
   return {
@@ -132,10 +135,10 @@ export function useGetCart() {
     USE_QUERY_KEY,
     async () => {
       try {
-        const result = await fetchJson("/api/tokenAndUserId");
-        const userId = result.userId;
-        const token = result.token;
-        return await fetchJson(`${API_URL}/cart/${userId}`, {
+        const result = await axios.get("/api/tokenAndUserId");
+        const userId = result.data.userId;
+        const token = result.data.token;
+        return await axios.get(`${API_URL}/cart/${userId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
       } catch (err) {
@@ -146,6 +149,5 @@ export function useGetCart() {
       cacheTime: Infinity,
     }
   );
-
   return query.data;
 }

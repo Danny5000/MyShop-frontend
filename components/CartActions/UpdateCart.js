@@ -11,17 +11,21 @@ function UpdateCart({ productId, quantity }) {
   };
 
   return (
-    <div className="py-2">
-      <input
-        type="number"
-        name="quantity"
-        min="1"
-        className="border rounded px-3 py-1 mr-2 w-20 text-center"
-        value={itemQuantity.toString()}
-        onChange={handleChange}
-      />
-      {updateCartError && <p className="text-red-700">{`${errMessage}`}</p>}
-    </div>
+    <>
+      <div className="py-2 relative">
+        <input
+          type="number"
+          name="quantity"
+          min="1"
+          className="border rounded px-3 py-1 mr-2 w-20 text-center"
+          value={itemQuantity.toString()}
+          onChange={handleChange}
+        />
+        <div className="absolute whitespace-nowrap bottom-24 right-0 w-68 h-8">
+          {updateCartError && <p className="text-red-700">{`${errMessage}`}</p>}
+        </div>
+      </div>
+    </>
   );
 }
 

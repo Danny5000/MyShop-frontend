@@ -9,8 +9,8 @@ function formatCurrency(value) {
 function CartTable({ cartItems }) {
   return (
     <>
-      {cartItems.message && (
-        <span className="text-red-600 pl-4">{cartItems.message}</span>
+      {cartItems.data.message && (
+        <span className="text-red-600 pl-4">{cartItems.data.message}</span>
       )}
       <table className="mt-3">
         <thead>
@@ -22,7 +22,7 @@ function CartTable({ cartItems }) {
           </tr>
         </thead>
         <tbody>
-          {cartItems.data.map((cartItem) => (
+          {cartItems.data.data.map((cartItem) => (
             <tr key={cartItem.productId}>
               <td className="px-4 py-2 text-blue-500 hover:text-purple-500">
                 <Link
@@ -55,18 +55,19 @@ function CartTable({ cartItems }) {
             <th></th>
             <th></th>
             <th className="px-4 py-2 text-right">
-              {formatCurrency(cartItems.cartTotal)}
+              {formatCurrency(cartItems.data.cartTotal)}
             </th>
           </tr>
         </tfoot>
       </table>
       <div className="flex px-4">
-        <button className="buttonGreen mr-2">
-          <Link href={"/checkout"}>Checkout</Link>
-        </button>
-        <button className="buttonGreen">
-          <Link href={"/"}>Back</Link>
-        </button>
+        <Link href={"/checkout"}>
+          <button className="buttonGreen mr-2">Review Purchase</button>
+        </Link>
+
+        <Link href={"/"}>
+          <button className="buttonGreen">Back</button>
+        </Link>
       </div>
     </>
   );

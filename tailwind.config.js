@@ -8,6 +8,9 @@ module.exports = {
       fontFamily: {
         Poppins: ["Poppins"],
       },
+      width: {
+        68: "17.5rem",
+      },
     },
   },
   variants: {
