@@ -12,7 +12,12 @@ function UpdateCart({ productId, quantity }) {
 
   return (
     <>
-      <div className="py-2 relative">
+      <div className="relative">
+        {updateCartError && (
+          <p className="text-red-700 absolute whitespace-nowrap top-12">{`${errMessage}`}</p>
+        )}
+      </div>
+      <div className="py-2">
         <input
           type="number"
           name="quantity"
@@ -21,9 +26,6 @@ function UpdateCart({ productId, quantity }) {
           value={itemQuantity.toString()}
           onChange={handleChange}
         />
-        <div className="absolute whitespace-nowrap bottom-24 right-0 w-68 h-8">
-          {updateCartError && <p className="text-red-700">{`${errMessage}`}</p>}
-        </div>
       </div>
     </>
   );

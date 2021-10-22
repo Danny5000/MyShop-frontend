@@ -29,7 +29,7 @@ export function useAddProduct() {
         return false;
       }
     },
-    errMessage: mutation.error?.response?.data?.message,
+    errMessage: mutation.error?.response?.data?.errMessage,
     addProductSuccess: mutation.isSuccess,
     addProductError: mutation.isError,
     addProductLoading: mutation.isLoading,
@@ -94,7 +94,7 @@ export function useUpdateProduct() {
         return false;
       }
     },
-    errMessage: mutation.error?.response?.data?.message,
+    errMessage: mutation.error?.response?.data?.errMessage,
     updateProductSuccess: mutation.isSuccess,
     updateProductError: mutation.isError,
     updateProductLoading: mutation.isLoading,

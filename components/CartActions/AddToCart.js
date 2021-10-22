@@ -5,8 +5,13 @@ import { useAddToCart } from "../../hooks/cart";
 function AddToCart({ productId }) {
   const router = useRouter();
   const [quantity, setQuantity] = useState(1);
-  const { addToCart, addToCartLoading, addToCartError, errMessage } =
-    useAddToCart();
+  const {
+    addToCart,
+    addToCartSuccess,
+    addToCartLoading,
+    addToCartError,
+    errMessage,
+  } = useAddToCart();
 
   const handleClick = async () => {
     await addToCart(productId, quantity);
@@ -28,7 +33,7 @@ function AddToCart({ productId }) {
           Add to cart
         </button>
       )}
-      {!addToCartError && (
+      {addToCartSuccess && (
         <p className="text-green-700">{`Item added to cart.`}</p>
       )}
       {addToCartError && <p className="text-red-700">{`${errMessage}`}</p>}

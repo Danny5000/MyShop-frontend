@@ -49,6 +49,7 @@ export function useAddToCart() {
     errMessage: mutation.error?.response?.data?.errMessage,
     addToCartError: mutation.isError,
     addToCartLoading: mutation.isLoading,
+    addToCartSuccess: mutation.isSuccess,
   };
 }
 

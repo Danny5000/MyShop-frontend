@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.4.1",
+    "@heroicons/react": "^1.0.4",
     "axios": "^0.21.4",
     "form-data": "^4.0.0",
     "jsonwebtoken": "^8.5.1",

@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Title from "../Title";
-import NavBar from "../NavBar";
+import NavBar from "../NavUI/NavBar";
 function Page({ title, children }) {
   return (
     <>

@@ -35,7 +35,7 @@ export function useCheckout() {
         return false;
       }
     },
-    errMessage: mutation.error?.response?.data?.message,
+    errMessage: mutation.error?.response?.data?.errMessage,
     checkoutError: mutation.isError,
     checkoutLoading: mutation.isLoading,
     checkoutSuccess: mutation.isSuccess,
