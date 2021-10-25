@@ -20,8 +20,6 @@ export function useAddToCart() {
     )
   );
 
-  console.log(mutation);
-
   return {
     addToCart: async (productId, quantity) => {
       try {

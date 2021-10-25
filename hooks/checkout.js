@@ -1,7 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 
-const USE_QUERY_KEY = "checkoutItems";
 const { API_URL } = process.env;
 
 export function useCheckout() {
@@ -40,4 +39,44 @@ export function useCheckout() {
     checkoutLoading: mutation.isLoading,
     checkoutSuccess: mutation.isSuccess,
   };
+}
+
+export function useGetOrderHistory() {
+  const QUERY_KEY = "orderHistory";
+  const query = useQuery(QUERY_KEY, async () => {
+    try {
+      const result = await axios.get("/api/tokenAndUserId");
+      const token = result.data.token;
+      const userId = result.data.userId;
+
+      return await axios.get(
+        `${process.env.API_URL}/user/orderhist/${userId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+    } catch (err) {
+      return undefined;
+    }
+  });
+
+  return query.data;
+}
+
+export function useGetProductsSold() {
+  const QUERY_KEY = "productsSold";
+  const query = useQuery(QUERY_KEY, async () => {
+    try {
+      const result = await axios.get("/api/tokenAndUserId");
+      const token = result.data.token;
+      const userId = result.data.userId;
+
+      return await axios.get(`${process.env.API_URL}/itemssold/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+    } catch (err) {
+      return undefined;
+    }
+  });
+  return query.data;
 }

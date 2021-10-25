@@ -74,6 +74,9 @@ function ProductPage({
                 <Link href={"/cart"}>
                   <button className="buttonYellow">My Cart</button>
                 </Link>
+                <Link href={"/"}>
+                  <button className="ml-2 buttonYellow">Back</button>
+                </Link>
               </>
             )}
           </div>
