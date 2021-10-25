@@ -24,7 +24,6 @@ export function useCheckout() {
         const result = await axios.get("/api/tokenAndUserId");
         const token = result.data.token;
         const userId = result.data.userId;
-        //console.log("token", token, "user", userId);
         await mutation.mutateAsync({
           token,
           userId,
