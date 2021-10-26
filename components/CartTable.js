@@ -1,12 +1,14 @@
 import DeleteFromCart from "./CartActions/DeleteFromCart";
 import Link from "next/link";
 import UpdateCart from "./CartActions/UpdateCart";
+import { useRouter } from "next/router";
 
 function formatCurrency(value) {
   return "$" + value.toFixed(2);
 }
 
 function CartTable({ cartItems }) {
+  const router = useRouter();
   return (
     <>
       {cartItems.data.message && (
@@ -62,12 +64,19 @@ function CartTable({ cartItems }) {
       </table>
       <div className="flex px-4">
         <Link href={"/checkout"}>
-          <button className="buttonGreen mr-2">Review Purchase</button>
+          <button
+            disabled={cartItems.data.data.length === 0 ? true : false}
+            className={`buttonGreen mr-2 ${
+              cartItems.data.data.length === 0 ? "cursor-not-allowed" : null
+            }`}
+          >
+            Review Purchase
+          </button>
         </Link>
 
-        <Link href={"/"}>
-          <button className="buttonGreen">Back</button>
-        </Link>
+        <button onClick={() => router.back()} className="buttonGreen">
+          Back
+        </button>
       </div>
     </>
   );

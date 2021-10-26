@@ -5,6 +5,7 @@ import Page from "../../components/PageTemplates/Page";
 import { useUser } from "../../hooks/user";
 import { ApiError } from "../../lib/api";
 import { getProduct, getProducts } from "../../lib/products";
+import { useRouter } from "next/router";
 
 export async function getStaticPaths() {
   const products = await getProducts();
@@ -42,6 +43,7 @@ function ProductPage({
   },
 }) {
   const user = useUser();
+  const router = useRouter();
   return (
     <Page title={name}>
       <div className="flex flex-col lg:flex-row">
@@ -74,9 +76,13 @@ function ProductPage({
                 <Link href={"/cart"}>
                   <button className="buttonYellow">My Cart</button>
                 </Link>
-                <Link href={"/"}>
-                  <button className="ml-2 buttonYellow">Back</button>
-                </Link>
+
+                <button
+                  onClick={() => router.back()}
+                  className="ml-2 buttonYellow"
+                >
+                  Back
+                </button>
               </>
             )}
           </div>

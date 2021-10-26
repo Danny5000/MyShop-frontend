@@ -1,11 +1,13 @@
 import Link from "next/link";
 import PostCheckout from "./CheckoutActions/PostCheckout";
+import { useRouter } from "next/router";
 
 function formatCurrency(value) {
   return "$" + value.toFixed(2);
 }
 
 function Checkout({ cartItems }) {
+  const router = useRouter();
   return (
     <>
       {cartItems.message && (
@@ -54,9 +56,14 @@ function Checkout({ cartItems }) {
         </tfoot>
       </table>
       <div className="flex px-4">
-        <PostCheckout />
-        <Link href={"/cart"}>
-          <button className="buttonGreen">Back</button>
+        <PostCheckout cartItems={cartItems} />
+
+        <button onClick={() => router.back()} className="buttonGreen">
+          Back
+        </button>
+
+        <Link href={"/"}>
+          <button className="buttonGreen ml-2">Home</button>
         </Link>
       </div>
     </>

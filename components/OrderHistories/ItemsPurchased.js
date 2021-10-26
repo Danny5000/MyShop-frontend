@@ -6,14 +6,14 @@ function formatCurrency(value) {
 
 function ItemsPurchased({ orders }) {
   return (
-    <div className="flex flex-col pl-2 place-items-center ">
+    <div className="flex flex-col pl-2 place-items-center">
       {orders?.map((order, index) => (
         <div
           key={index}
-          className="flex flex-col border shadow hover:shadow-lg pr-2"
+          className="flex flex-col border shadow hover:shadow-lg mb-4"
         >
-          <span className="flex pt-2 pl-2 space-x-12 text-xs">
-            <div className="flex space-x-0.5">
+          <span className="flex pt-2 pl-2 pr-2 space-x-12 text-xs">
+            <div className="flex space-x-0.5 pb-2">
               Order ID:{" "}
               {order.map((item, index) => (
                 <p key={index}>{item.orderId}</p>
@@ -26,6 +26,8 @@ function ItemsPurchased({ orders }) {
               ))}
             </div>
           </span>
+
+          <hr className="" />
 
           <div className="flex flex-col text-sm">
             <table className="mt-4">
@@ -41,27 +43,27 @@ function ItemsPurchased({ orders }) {
               <tbody>
                 {order.map(
                   (item, index) =>
-                    item.cartItem && (
+                    item.orderItem && (
                       <tr key={index}>
                         <td className="py-1 text-center text-blue-500 hover:text-purple-500">
                           <Link
-                            href={`/products/${item.cartItem.productId}`}
-                            as={`/products/${item.cartItem.productId}`}
-                            to={`/products/${item.cartItem.productId}`}
+                            href={`/products/${item.orderItem.productId}`}
+                            as={`/products/${item.orderItem.productId}`}
+                            to={`/products/${item.orderItem.productId}`}
                           >
-                            <a>{item.cartItem.productName}</a>
+                            <a>{item.orderItem.productName}</a>
                           </Link>
                         </td>
                         <td className="py-1 text-center">
-                          {item.cartItem.productPrice &&
-                            formatCurrency(item.cartItem.productPrice)}
+                          {item.orderItem.productPrice &&
+                            formatCurrency(item.orderItem.productPrice)}
                         </td>
                         <td className="py-1 text-center">
-                          {item.cartItem.quantity}
+                          {item.orderItem.quantity}
                         </td>
                         <td className="py-1 text-center">
-                          {item.cartItem.total &&
-                            formatCurrency(item.cartItem.total)}
+                          {item.orderItem.total &&
+                            formatCurrency(item.orderItem.total)}
                         </td>
                         <td className="py-1 text-center text-blue-500 hover:text-purple-500">
                           <Link

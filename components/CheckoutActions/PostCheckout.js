@@ -2,8 +2,8 @@ import { useCheckout } from "../../hooks/checkout";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-function PostCheckout() {
-  const { checkout, checkoutLoading } = useCheckout();
+function PostCheckout({ cartItems }) {
+  const { checkout, checkoutLoading, checkoutSuccess } = useCheckout();
   const router = useRouter();
 
   const handleClick = async () => {
@@ -19,7 +19,17 @@ function PostCheckout() {
         <p>Loading...</p>
       ) : (
         <Link href={""}>
-          <button className="buttonGreen" onClick={handleClick}>
+          <button
+            disabled={
+              checkoutLoading ||
+              checkoutSuccess ||
+              cartItems.data.data.length === 0
+            }
+            className={`buttonGreen ${
+              cartItems.data.data.length === 0 ? "cursor-not-allowed" : null
+            }`}
+            onClick={handleClick}
+          >
             Checkout
           </button>
         </Link>

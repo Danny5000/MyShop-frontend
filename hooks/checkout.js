@@ -70,9 +70,12 @@ export function useGetProductsSold() {
       const token = result.data.token;
       const userId = result.data.userId;
 
-      return await axios.get(`${process.env.API_URL}/itemssold/${userId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      return await axios.get(
+        `${process.env.API_URL}/user/itemssold/${userId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
     } catch (err) {
       return undefined;
     }
