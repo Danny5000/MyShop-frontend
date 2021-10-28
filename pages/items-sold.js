@@ -8,7 +8,7 @@ function SellerPage() {
 
   return (
     <Page title="Seller History">
-      <ItemsSold soldProducts={mySoldProducts} />
+      <ItemsSold orders={mySoldProducts} />
     </Page>
   );
 }
