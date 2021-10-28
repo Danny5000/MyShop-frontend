@@ -1,6 +1,14 @@
 import { Fragment } from "react";
+import React from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
+import Link from "next/link";
+
+const CustomLinkWrapper = React.forwardRef((props, ref) => (
+  <div ref={ref} {...props}>
+    {props.children}
+  </div>
+));
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -27,45 +35,54 @@ export default function NavDropDown({ user }) {
       >
         <Menu.Items className="origin-top-right absolute z-50 right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href={`/users/${user.username}`}
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
+            <Link href={`/users/${user.username}`}>
+              <CustomLinkWrapper>
+                <Menu.Item>
+                  {({ active }) => (
+                    <a
+                      className={classNames(
+                        active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                        "block px-4 py-2 text-sm cursor-pointer"
+                      )}
+                    >
+                      Profile
+                    </a>
                   )}
-                >
-                  Profile
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href={"/order-history"}
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
+                </Menu.Item>
+              </CustomLinkWrapper>
+            </Link>
+            <Link href={"/order-history"}>
+              <CustomLinkWrapper>
+                <Menu.Item>
+                  {({ active }) => (
+                    <a
+                      className={classNames(
+                        active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                        "block px-4 py-2 text-sm cursor-pointer"
+                      )}
+                    >
+                      Order History
+                    </a>
                   )}
-                >
-                  Order History
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href={"/items-sold"}
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
+                </Menu.Item>
+              </CustomLinkWrapper>
+            </Link>
+            <Link href={"/items-sold"}>
+              <CustomLinkWrapper>
+                <Menu.Item>
+                  {({ active }) => (
+                    <a
+                      className={classNames(
+                        active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                        "block px-4 py-2 text-sm cursor-pointer"
+                      )}
+                    >
+                      Products Sold
+                    </a>
                   )}
-                >
-                  Products Sold
-                </a>
-              )}
-            </Menu.Item>
+                </Menu.Item>
+              </CustomLinkWrapper>
+            </Link>
           </div>
         </Menu.Items>
       </Transition>
