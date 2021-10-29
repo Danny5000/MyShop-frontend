@@ -1,17 +1,18 @@
+import DeleteFromCart from "../CartActions/DeleteFromCart";
 import Link from "next/link";
-import PostCheckout from "./CheckoutActions/PostCheckout";
+import UpdateCart from "../CartActions/UpdateCart";
 import { useRouter } from "next/router";
 
 function formatCurrency(value) {
   return "$" + value.toFixed(2);
 }
 
-function Checkout({ cartItems }) {
+function CartTable({ cartItems }) {
   const router = useRouter();
   return (
     <>
-      {cartItems.message && (
-        <span className="text-red-600 pl-4">{cartItems.message}</span>
+      {cartItems.data.message && (
+        <span className="text-red-600 pl-4">{cartItems.data.message}</span>
       )}
       <table className="mt-3">
         <thead>
@@ -37,10 +38,16 @@ function Checkout({ cartItems }) {
               <td className="px-4 py-2 text-right">
                 {formatCurrency(cartItem.productPrice)}
               </td>
-              <td className="px-4 py-2 text-center">{cartItem.quantity}</td>
+              <td className="px-4 py-2 text-right">
+                <UpdateCart
+                  productId={cartItem.productId}
+                  quantity={cartItem.quantity}
+                />
+              </td>
               <td className="px-4 py-2 text-right">
                 {formatCurrency(cartItem.total)}
               </td>
+              <td>{<DeleteFromCart productId={cartItem.productId} />}</td>
             </tr>
           ))}
         </tbody>
@@ -56,18 +63,23 @@ function Checkout({ cartItems }) {
         </tfoot>
       </table>
       <div className="flex px-4">
-        <PostCheckout cartItems={cartItems} />
+        <Link href={"/checkout"}>
+          <button
+            disabled={cartItems.data.data.length === 0 ? true : false}
+            className={`buttonGreen mr-2 ${
+              cartItems.data.data.length === 0 ? "cursor-not-allowed" : null
+            }`}
+          >
+            Review Purchase
+          </button>
+        </Link>
 
         <button onClick={() => router.back()} className="buttonGreen">
           Back
         </button>
-
-        <Link href={"/"}>
-          <button className="buttonGreen ml-2">Home</button>
-        </Link>
       </div>
     </>
   );
 }
 
-export default Checkout;
+export default CartTable;

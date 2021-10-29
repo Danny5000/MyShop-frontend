@@ -106,8 +106,45 @@ function ItemsSold({ orders }) {
                         } w-5 h-5 text-blue-400`}
                       />
                     </Disclosure.Button>
-                    <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
-                      Buyer's data goes here.
+                    <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-800">
+                      <div className="flex flex-col space-x-0.5">
+                        <div className="flex space-x-0.5">
+                          Name:
+                          {order.map((item, index) => (
+                            <p key={index}>{item.custDetails?.name}</p>
+                          ))}
+                        </div>
+                        <div className="flex space-x-0.5">
+                          Email:{" "}
+                          {order.map((item, index) => (
+                            <p key={index}>{item.email}</p>
+                          ))}
+                        </div>
+                        <div className="flex space-x-0.5">
+                          Street Address:
+                          {order.map((item, index) => (
+                            <p key={index}>{item.custDetails?.streetAddress}</p>
+                          ))}
+                        </div>
+                        <div className="flex space-x-0.5">
+                          City:
+                          {order.map((item, index) => (
+                            <p key={index}>{item.custDetails?.city}</p>
+                          ))}
+                        </div>
+                        <div className="flex space-x-0.5">
+                          State:
+                          {order.map((item, index) => (
+                            <p key={index}>{item.custDetails?.state}</p>
+                          ))}
+                        </div>
+                        <div className="flex space-x-0.5">
+                          Zip Code:
+                          {order.map((item, index) => (
+                            <p key={index}>{item.custDetails?.zipCode}</p>
+                          ))}
+                        </div>
+                      </div>
                     </Disclosure.Panel>
                   </>
                 )}

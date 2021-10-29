@@ -1,5 +1,5 @@
 import Page from "../components/PageTemplates/Page";
-import CartTable from "../components/CartTable";
+import CartTable from "../components/Cart/CartTable";
 import { useGetCart } from "../hooks/cart";
 import { useUser } from "../hooks/user";
 import { useRouter } from "next/router";

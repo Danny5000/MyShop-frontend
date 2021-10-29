@@ -1,5 +1,5 @@
 import Page from "../components/PageTemplates/Page";
-import Checkout from "../components/Checkout";
+import Checkout from "../components/Cart/Checkout";
 import { useGetCart } from "../hooks/cart";
 import { useUser } from "../hooks/user";
 import { useRouter } from "next/router";

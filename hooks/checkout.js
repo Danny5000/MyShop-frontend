@@ -1,14 +1,13 @@
-import { useQuery, useMutation, useQueryClient } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import axios from "axios";
 
 const { API_URL } = process.env;
 
 export function useCheckout() {
-  const queryClient = useQueryClient();
-  const mutation = useMutation(({ token, userId }) =>
+  const mutation = useMutation(({ token, userId, custDetails }) =>
     axios.post(
       `${API_URL}/checkout/${userId}`,
-      {},
+      { custDetails },
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -19,7 +18,7 @@ export function useCheckout() {
   );
 
   return {
-    checkout: async () => {
+    checkout: async (custDetails) => {
       try {
         const result = await axios.get("/api/tokenAndUserId");
         const token = result.data.token;
@@ -27,6 +26,7 @@ export function useCheckout() {
         await mutation.mutateAsync({
           token,
           userId,
+          custDetails,
         });
         return true;
       } catch (err) {
