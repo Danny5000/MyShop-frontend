@@ -38,18 +38,16 @@ function Checkout({ cartItems }) {
     const res = await checkout(formData);
     if (res) {
       router.push("/order-history");
-      //router.reload(window.location.pathname);
     }
   };
 
   return (
     <>
-      {cartItems.message && (
-        <span className="text-red-600 pl-4">{cartItems.message}</span>
+      {checkoutError && (
+        <div className="inline-block">
+          <p className="text-red-700">`${errMessage}`</p>
+        </div>
       )}
-      <div className="inline-block">
-        {checkoutError && <p className="text-red-700">{`${errMessage}`}</p>}
-      </div>
       <table className="mt-3">
         <thead>
           <tr>
@@ -135,7 +133,7 @@ function Checkout({ cartItems }) {
           />
         </Field>
 
-        <div className="flex px-4">
+        <div className="flex">
           <div className="mr-2">
             {checkoutLoading ? (
               <p>Loading...</p>
@@ -155,16 +153,15 @@ function Checkout({ cartItems }) {
               </button>
             )}
           </div>
+          <button onClick={() => router.back()} className="buttonGreen">
+            Back
+          </button>
+
+          <Link href={"/"}>
+            <button className="buttonGreen ml-2">Home</button>
+          </Link>
         </div>
       </form>
-
-      <button onClick={() => router.back()} className="buttonGreen">
-        Back
-      </button>
-
-      <Link href={"/"}>
-        <button className="buttonGreen ml-2">Home</button>
-      </Link>
     </>
   );
 }

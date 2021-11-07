@@ -1,0 +1,68 @@
+import { useMutation } from "react-query";
+import axios from "axios";
+
+const { API_URL } = process.env;
+
+export function useAddSeller() {
+  const mutation = useMutation(({ token }) =>
+    axios.post(
+      `${API_URL}/make-seller/`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+  );
+
+  return {
+    addSeller: async () => {
+      try {
+        const result = await axios.get("/api/tokenAndUserId");
+        const token = result.data.token;
+
+        const res = await mutation.mutateAsync({ token });
+        return res;
+      } catch (err) {
+        return false;
+      }
+    },
+    addSellerErrMessage: mutation.error?.response?.data?.errMessage,
+    addSellerSuccess: mutation.isSuccess,
+    addSellerError: mutation.isError,
+    addSellerLoading: mutation.isLoading,
+  };
+}
+
+export function useManageAccount() {
+  const mutation = useMutation(({ token }) =>
+    axios.post(
+      `${API_URL}/get-account-status/`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+  );
+
+  return {
+    manageAccount: async () => {
+      try {
+        const result = await axios.get("/api/tokenAndUserId");
+        const token = result.data.token;
+
+        await mutation.mutateAsync({ token });
+        return true;
+      } catch (err) {
+        return false;
+      }
+    },
+    manageAccountErrMessage: mutation.error?.response?.data?.errMessage,
+    manageAccountSuccess: mutation.isSuccess,
+    manageAccountError: mutation.isError,
+    manageAccountLoading: mutation.isLoading,
+  };
+}

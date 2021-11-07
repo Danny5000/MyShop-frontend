@@ -1,7 +1,7 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ["localhost"],
+    domains: ["localhost", "connect.stripe.com"],
   },
   env: {
     IMG_URL: process.env.IMG_URL,
