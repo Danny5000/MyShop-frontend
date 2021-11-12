@@ -20,7 +20,7 @@ function Page({ title, children }) {
       <header>
         <NavBar />
       </header>
-      <main className="px-6 py-4">
+      <main className="flex flex-col place-items-center px-6 py-4  ">
         <Title>{title}</Title>
         {children}
       </main>

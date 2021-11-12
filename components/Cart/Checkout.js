@@ -1,9 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
-import Field from "../Field";
-import Input from "../Input";
-import { useCheckout } from "../../hooks/checkout";
+import { useStripeCheckout } from "../../hooks/stripe";
+import { loadStripe } from "@stripe/stripe-js";
 
 function formatCurrency(value) {
   return "$" + value.toFixed(2);
@@ -11,39 +9,24 @@ function formatCurrency(value) {
 
 function Checkout({ cartItems }) {
   const router = useRouter();
-  const [formData, setFormData] = useState({
-    name: "",
-    streetAddress: "",
-    city: "",
-    state: "",
-    zipCode: "",
-  });
 
   const {
-    checkout,
-    checkoutLoading,
-    checkoutSuccess,
-    checkoutError,
-    errMessage,
-  } = useCheckout();
-
-  const changeHandler = (e) => {
-    setFormData((prevValues) => {
-      return { ...prevValues, [e.target.name]: e.target.value };
-    });
-  };
+    stripeCheckout,
+    stripeCheckoutError,
+    stripeCheckoutLoading,
+    stripeCheckoutSuccess,
+  } = useStripeCheckout();
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const res = await checkout(formData);
-    if (res) {
-      router.push("/order-history");
-    }
+    const res = await stripeCheckout();
+    const stripe = await loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_KEY}`);
+    stripe.redirectToCheckout({ sessionId: res?.data });
   };
 
   return (
     <>
-      {checkoutError && (
+      {stripeCheckoutError && (
         <div className="inline-block">
           <p className="text-red-700">`${errMessage}`</p>
         </div>
@@ -90,58 +73,16 @@ function Checkout({ cartItems }) {
           </tr>
         </tfoot>
       </table>
-
       <form onSubmit={submitHandler} className="ml-4">
-        <Field label="Name">
-          <Input
-            required
-            placeholder="Enter your full name."
-            name="name"
-            onChange={changeHandler}
-          />
-        </Field>
-        <Field label="Street Address">
-          <Input
-            required
-            placeholder="Please enter a valid street address."
-            name="streetAddress"
-            onChange={changeHandler}
-          />
-        </Field>
-        <Field label="City">
-          <Input
-            placeholder="Please enter a valid city name."
-            required
-            name="city"
-            onChange={changeHandler}
-          />
-        </Field>
-        <Field label="State">
-          <Input
-            placeholder="Please enter a valid state."
-            required
-            name="state"
-            onChange={changeHandler}
-          />
-        </Field>
-        <Field label="Zip Code">
-          <Input
-            placeholder="Please enter a valid zip code."
-            required
-            name="zipCode"
-            onChange={changeHandler}
-          />
-        </Field>
-
         <div className="flex">
           <div className="mr-2">
-            {checkoutLoading ? (
+            {stripeCheckoutLoading ? (
               <p>Loading...</p>
             ) : (
               <button
                 disabled={
-                  checkoutLoading ||
-                  checkoutSuccess ||
+                  stripeCheckoutLoading ||
+                  stripeCheckoutSuccess ||
                   cartItems.data.data.length === 0
                 }
                 className={`buttonGreen ${

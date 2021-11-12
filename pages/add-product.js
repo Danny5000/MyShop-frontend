@@ -60,9 +60,9 @@ function AddProductPage() {
 
   const {
     addSellerErrMessage,
-    // addSellerSuccess,
     addSellerError,
     addSellerLoading,
+    addSellerSuccess,
     addSeller,
   } = useAddSeller();
 
@@ -74,7 +74,8 @@ function AddProductPage() {
   useEffect(() => {
     if (
       performance.getEntriesByType("navigation")[0].type !== "navigate" &&
-      performance.getEntriesByType("navigation")[0].type !== "reload"
+      performance.getEntriesByType("navigation")[0].type !== "reload" &&
+      performance.getEntriesByType("navigation")[0].type !== "back_forward"
     ) {
       if (!user) {
         router.push("/");
@@ -97,7 +98,9 @@ function AddProductPage() {
           </p>
           <button
             className="buttonYellow"
-            disabled={addSellerLoading}
+            disabled={
+              addSellerLoading || addSellerSuccess || user?.isSeller === true
+            }
             onClick={becomeSeller}
           >
             Become a Seller
@@ -112,7 +115,7 @@ function AddProductPage() {
       <fieldset
         disabled={addProductLoading || user?.isSeller === false || !user}
       >
-        <form onSubmit={handleSubmit}>
+        <form className="items-center" onSubmit={handleSubmit}>
           <Field label="Product Name">
             <Input
               required
