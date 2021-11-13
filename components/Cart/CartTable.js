@@ -9,6 +9,7 @@ function formatCurrency(value) {
 
 function CartTable({ cartItems }) {
   const router = useRouter();
+
   return (
     <>
       {cartItems.data.message && (

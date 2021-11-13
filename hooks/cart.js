@@ -150,3 +150,42 @@ export function useGetCart() {
   );
   return query.data;
 }
+
+export function useValidateCart() {
+  const queryClient = useQueryClient();
+  const mutation = useMutation(({ token }) =>
+    axios.get(`${API_URL}/validate-cart`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+  );
+
+  return {
+    validateCart: async () => {
+      try {
+        const result = await axios.get("/api/tokenAndUserId");
+        const token = result.data.token;
+
+        await mutation.mutateAsync(
+          {
+            token,
+          }
+          // {
+          //   onSuccess: (data) => {
+          //     queryClient.setQueryData(USE_QUERY_KEY, data);
+          //   },
+          // }
+        );
+        return true;
+      } catch (err) {
+        return false;
+      }
+    },
+    validateCartErrMessage: mutation.error?.response?.data?.errMessage,
+    validateCartError: mutation.isError,
+    validateCartLoading: mutation.isLoading,
+    validateCartSuccess: mutation.isSuccess,
+  };
+}

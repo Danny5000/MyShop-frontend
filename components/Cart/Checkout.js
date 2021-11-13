@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useStripeCheckout } from "../../hooks/stripe";
 import { loadStripe } from "@stripe/stripe-js";
+import { useValidateCart } from "../../hooks/cart";
 
 function formatCurrency(value) {
   return "$" + value.toFixed(2);
@@ -15,21 +16,37 @@ function Checkout({ cartItems }) {
     stripeCheckoutError,
     stripeCheckoutLoading,
     stripeCheckoutSuccess,
+    stripeCheckoutErrMessage,
   } = useStripeCheckout();
+
+  const {
+    validateCart,
+    validateCartError,
+    validateCartErrMessage,
+    validateCartLoading,
+  } = useValidateCart();
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const res = await stripeCheckout();
-    const stripe = await loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_KEY}`);
-    stripe.redirectToCheckout({ sessionId: res?.data });
+
+    const validated = await validateCart();
+
+    if (validated) {
+      const res = await stripeCheckout();
+      const stripe = await loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_KEY}`);
+      stripe.redirectToCheckout({ sessionId: res?.data });
+    }
   };
 
   return (
     <>
       {stripeCheckoutError && (
         <div className="inline-block">
-          <p className="text-red-700">`${errMessage}`</p>
+          <p className="text-red-700">`${stripeCheckoutErrMessage}`</p>
         </div>
+      )}
+      {validateCartError && (
+        <span className="text-red-600 pl-4">{validateCartErrMessage}</span>
       )}
       <table className="mt-3">
         <thead>
@@ -73,36 +90,35 @@ function Checkout({ cartItems }) {
           </tr>
         </tfoot>
       </table>
-      <form onSubmit={submitHandler} className="ml-4">
-        <div className="flex">
-          <div className="mr-2">
-            {stripeCheckoutLoading ? (
-              <p>Loading...</p>
-            ) : (
-              <button
-                disabled={
-                  stripeCheckoutLoading ||
-                  stripeCheckoutSuccess ||
-                  cartItems.data.data.length === 0
-                }
-                className={`buttonGreen ${
-                  cartItems.data.data.length === 0 ? "cursor-not-allowed" : null
-                }`}
-                type="submit"
-              >
-                Checkout
-              </button>
-            )}
-          </div>
-          <button onClick={() => router.back()} className="buttonGreen">
-            Back
-          </button>
-
-          <Link href={"/"}>
-            <button className="buttonGreen ml-2">Home</button>
-          </Link>
+      <div className="flex">
+        <div className="mr-2">
+          {stripeCheckoutLoading ? (
+            <p>Loading...</p>
+          ) : (
+            <button
+              disabled={
+                stripeCheckoutLoading ||
+                stripeCheckoutSuccess ||
+                validateCartLoading ||
+                cartItems.data.data.length === 0
+              }
+              className={`buttonGreen ${
+                cartItems.data.data.length === 0 ? "cursor-not-allowed" : null
+              }`}
+              onClick={submitHandler}
+            >
+              Checkout
+            </button>
+          )}
         </div>
-      </form>
+        <button onClick={() => router.push("/cart")} className="buttonGreen">
+          Back
+        </button>
+
+        <Link href={"/"}>
+          <button className="buttonGreen ml-2">Home</button>
+        </Link>
+      </div>
     </>
   );
 }
