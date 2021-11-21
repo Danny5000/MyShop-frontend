@@ -11,13 +11,8 @@ function formatCurrency(value) {
 function Checkout({ cartItems }) {
   const router = useRouter();
 
-  const {
-    stripeCheckout,
-    stripeCheckoutError,
-    stripeCheckoutLoading,
-    stripeCheckoutSuccess,
-    stripeCheckoutErrMessage,
-  } = useStripeCheckout();
+  const { stripeCheckout, stripeCheckoutLoading, stripeCheckoutSuccess } =
+    useStripeCheckout();
 
   const {
     validateCart,
@@ -40,11 +35,6 @@ function Checkout({ cartItems }) {
 
   return (
     <>
-      {stripeCheckoutError && (
-        <div className="inline-block">
-          <p className="text-red-700">`${stripeCheckoutErrMessage}`</p>
-        </div>
-      )}
       {validateCartError && (
         <span className="text-red-600 pl-4">{validateCartErrMessage}</span>
       )}

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import Field from "../components/Field";
 import Input from "../components/Input";
 import Page from "../components/PageTemplates/Page";
@@ -50,6 +51,9 @@ function SignInPage() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Field>
+        <Link href={"/reset-password/forgot"}>
+          <p className="text-blue-500 cursor-pointer">Forgot Password?</p>
+        </Link>
         {signInError && <p className="text-red-700">Invalid Credentials</p>}
         {signInLoading && <p>Loading...</p>}
         <button className="buttonGreen" disabled={signInLoading} type="submit">

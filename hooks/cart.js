@@ -168,18 +168,12 @@ export function useValidateCart() {
         const result = await axios.get("/api/tokenAndUserId");
         const token = result.data.token;
 
-        await mutation.mutateAsync(
-          {
-            token,
-          }
-          // {
-          //   onSuccess: (data) => {
-          //     queryClient.setQueryData(USE_QUERY_KEY, data);
-          //   },
-          // }
-        );
+        await mutation.mutateAsync({
+          token,
+        });
         return true;
       } catch (err) {
+        queryClient.invalidateQueries(USE_QUERY_KEY);
         return false;
       }
     },
