@@ -1,7 +1,23 @@
-import { useMutation } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import axios from "axios";
 
 const { API_URL } = process.env;
+const USE_QUERY_KEY = "products";
+
+export function useGetProduct(page) {
+  const query = useQuery(USE_QUERY_KEY, async () => {
+    try {
+      return await axios.get(
+        `${process.env.API_URL}/products?limit=2&page=${page}`
+      );
+    } catch (err) {
+      return undefined;
+    }
+  });
+  return {
+    products: query.data?.data?.data,
+  };
+}
 
 export function useAddProduct() {
   const mutation = useMutation(({ data, token }) =>
