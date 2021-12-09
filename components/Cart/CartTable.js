@@ -2,10 +2,7 @@ import DeleteFromCart from "../CartActions/DeleteFromCart";
 import Link from "next/link";
 import UpdateCart from "../CartActions/UpdateCart";
 import { useRouter } from "next/router";
-
-function formatCurrency(value) {
-  return "$" + value.toFixed(2);
-}
+import formatCurrency from "../../utils/formatCurrency";
 
 function CartTable({ cartItems }) {
   const router = useRouter();

@@ -13,15 +13,17 @@ function orderHistory() {
   const router = useRouter();
 
   useEffect(() => {
-    if (
-      performance.getEntriesByType("navigation")[0].type !== "navigate" &&
-      performance.getEntriesByType("navigation")[0].type !== "reload" &&
-      performance.getEntriesByType("navigation")[0].type !== "back_forward"
-    ) {
-      if (!user) {
-        router.push("/");
+    performance.getEntriesByType("navigation").forEach((navigation) => {
+      if (
+        navigation.type !== "navigate" &&
+        navigation.type !== "back_forward" &&
+        navigation.type !== "reload"
+      ) {
+        if (!user) {
+          router.push("/");
+        }
       }
-    }
+    });
   }, [user, router]);
 
   return (

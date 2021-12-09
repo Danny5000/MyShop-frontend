@@ -73,8 +73,8 @@ function AddProductPage() {
 
   useEffect(() => {
     if (
-      performance.getEntriesByType("navigation")[0].type !== "navigate" &&
       performance.getEntriesByType("navigation")[0].type !== "reload" &&
+      performance.getEntriesByType("navigation")[0].type !== "navigate" &&
       performance.getEntriesByType("navigation")[0].type !== "back_forward"
     ) {
       if (!user) {

@@ -3,10 +3,7 @@ import { useRouter } from "next/router";
 import { useStripeCheckout } from "../../hooks/stripe";
 import { loadStripe } from "@stripe/stripe-js";
 import { useValidateCart } from "../../hooks/cart";
-
-function formatCurrency(value) {
-  return "$" + value.toFixed(2);
-}
+import formatCurrency from "../../utils/formatCurrency";
 
 function Checkout({ cartItems }) {
   const router = useRouter();

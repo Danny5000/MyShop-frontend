@@ -1,8 +1,5 @@
 import Link from "next/link";
-
-function formatCurrency(value) {
-  return "$" + value.toFixed(2);
-}
+import formatCurrency from "../../utils/formatCurrency";
 
 function ItemsPurchased({ orders }) {
   return (

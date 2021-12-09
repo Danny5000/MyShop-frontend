@@ -51,7 +51,7 @@ export function useSignUp() {
         return false;
       }
     },
-    errMessage: mutation.error?.response?.data?.message,
+    errMessage: mutation.error?.response?.data?.errMessage,
     signUpError: mutation.isError,
     signUpLoading: mutation.isLoading,
   };

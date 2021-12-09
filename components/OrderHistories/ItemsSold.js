@@ -1,10 +1,7 @@
 import Link from "next/link";
 import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/solid";
-
-function formatCurrency(value) {
-  return "$" + value.toFixed(2);
-}
+import formatCurrency from "../../utils/formatCurrency";
 
 function ItemsSold({ orders }) {
   return (

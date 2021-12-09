@@ -17,6 +17,7 @@ function SignInPage() {
     password2: "",
   });
   const { signUp, signUpError, signUpLoading, errMessage } = useSignUp();
+  console.log(errMessage);
   const user = useUser();
   const changeHandler = (e) => {
     setFormData((prevValues) => {
