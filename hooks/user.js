@@ -19,6 +19,7 @@ export function useSignIn() {
       try {
         const user = await mutation.mutateAsync({ email, password });
         queryClient.setQueryData(USE_QUERY_KEY, user);
+        localStorage.setItem("user", email);
         return true;
       } catch (err) {
         return false;
@@ -46,6 +47,7 @@ export function useSignUp() {
             queryClient.setQueryData(USE_QUERY_KEY, result.data);
           },
         });
+        localStorage.setItem("user", allValues.email);
         return true;
       } catch (err) {
         return false;
@@ -74,6 +76,7 @@ export function useSignOut() {
       const result = await fetchJson("/api/tokenAndUserId");
       const token = result.token;
       await mutation.mutateAsync(token);
+      localStorage.removeItem("user");
     } catch (err) {
       return false;
     }

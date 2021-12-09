@@ -7,6 +7,7 @@ import { useAddProduct } from "../hooks/product";
 import { useUser } from "../hooks/user";
 import { useAddSeller } from "../hooks/stripe";
 import { useEffect } from "react";
+import getLocalUser from "../utils/getLocalUser";
 
 function AddProductPage() {
   const router = useRouter();
@@ -29,6 +30,7 @@ function AddProductPage() {
   } = useAddProduct();
 
   const user = useUser();
+  const localUser = getLocalUser();
 
   function handleUpload(e) {
     setFile(e.target.files[0]);
@@ -72,16 +74,10 @@ function AddProductPage() {
   };
 
   useEffect(() => {
-    if (
-      performance.getEntriesByType("navigation")[0].type !== "reload" &&
-      performance.getEntriesByType("navigation")[0].type !== "navigate" &&
-      performance.getEntriesByType("navigation")[0].type !== "back_forward"
-    ) {
-      if (!user) {
-        router.push("/");
-      }
+    if (!localUser) {
+      router.push("/");
     }
-  }, [user, router]);
+  }, [localUser]);
 
   return (
     <Page title="Sell a Product">

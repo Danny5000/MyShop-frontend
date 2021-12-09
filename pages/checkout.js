@@ -4,23 +4,19 @@ import { useGetCart } from "../hooks/cart";
 import { useUser } from "../hooks/user";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import getLocalUser from "../utils/getLocalUser";
 
 function CartPage() {
   const cartItems = useGetCart();
   const user = useUser();
+  const localUser = getLocalUser();
   const router = useRouter();
 
   useEffect(() => {
-    if (
-      performance.getEntriesByType("navigation")[0].type !== "navigate" &&
-      performance.getEntriesByType("navigation")[0].type !== "reload" &&
-      performance.getEntriesByType("navigation")[0].type !== "back_forward"
-    ) {
-      if (!user) {
-        router.push("/");
-      }
+    if (!localUser) {
+      router.push("/");
     }
-  }, [user, router]);
+  }, [localUser]);
 
   return (
     <Page title="Checkout">
