@@ -2,6 +2,20 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+**You must first download Node.js run this project on your local machine**
+
+# Before running the server create the file .env.local in the root directory of this project with the following enviornment variables
+
+- API_URL=http://localhost:3001/api/v1
+- IMG_URL=http://localhost:3001/images
+
+- REVALIDATE_SECONDS=5
+- JWT_SECRET=Your JWT secret - type a random string and make sure it matches the same secret used in the back-end .env file.
+
+#stripe
+
+- NEXT_PUBLIC_STRIPE_KEY=Your stripe public key. You must register with Stripe first, navigate to your user panel and copy this stripe public key here.
+
 First, run the development server:
 
 ```bash
