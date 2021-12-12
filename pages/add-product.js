@@ -9,8 +9,10 @@ import { useAddSeller } from "../hooks/stripe";
 import { useEffect } from "react";
 import getLocalUser from "../utils/getLocalUser";
 
+//The add products page
 function AddProductPage() {
   const router = useRouter();
+  //State for the form
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -19,8 +21,10 @@ function AddProductPage() {
     quantity: "",
   });
 
+  //State for the file upload
   const [file, setFile] = useState("");
 
+  //Use the add product hook for adding the product data
   const {
     addProduct,
     addProductError,
@@ -50,6 +54,7 @@ function AddProductPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await addProduct(formData);
+    //If response successful, clear the input fields
     if (res) {
       Array.from(document.querySelectorAll("input")).forEach(
         (input) => (input.value = "")
@@ -60,6 +65,7 @@ function AddProductPage() {
     }
   };
 
+  //Use the add seller hook
   const {
     addSellerErrMessage,
     addSellerError,
@@ -68,11 +74,13 @@ function AddProductPage() {
     addSeller,
   } = useAddSeller();
 
+  //Will redirect user to Stripe's onboarding process
   const becomeSeller = async () => {
     const res = await addSeller();
     window.location.href = res.data;
   };
 
+  //If user not logged in, redirect to main page
   useEffect(() => {
     if (!localUser) {
       router.push("/");

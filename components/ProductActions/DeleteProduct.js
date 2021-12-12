@@ -1,6 +1,7 @@
 import { useDeleteProduct } from "../../hooks/product";
 import { useRouter } from "next/router";
 
+//Logic for deleting a product
 function DeleteProduct({ productId }) {
   const router = useRouter();
   const { deleteProduct, deleteProductLoading, deleteProductSuccess } =

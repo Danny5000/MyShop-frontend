@@ -6,6 +6,7 @@ import Page from "../../components/PageTemplates/Page";
 import { useForgotPassword } from "../../hooks/resetPassword";
 import { useUser } from "../../hooks/user";
 
+//Forgot password page
 function ForgotPassword() {
   const router = useRouter();
   const user = useUser();
@@ -20,6 +21,7 @@ function ForgotPassword() {
     });
   };
 
+  //If user logged in, redirect to main page
   useEffect(() => {
     if (performance.getEntriesByType("navigation")[0].type !== "reload") {
       if (user) {

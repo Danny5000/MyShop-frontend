@@ -7,6 +7,9 @@ import { ApiError } from "../../lib/api";
 import { getProduct, getProducts } from "../../lib/products";
 import { useRouter } from "next/router";
 
+//Page for rendering each product by its id
+
+//Creates paths for each product
 export async function getStaticPaths() {
   const products = await getProducts();
   return {
@@ -17,6 +20,7 @@ export async function getStaticPaths() {
   };
 }
 
+//Get the product data for each id
 export async function getStaticProps({ params: { id } }) {
   try {
     const product = await getProduct(id);
@@ -37,6 +41,7 @@ export async function getStaticProps({ params: { id } }) {
   }
 }
 
+//Pass the product data as props for rendering onto the page
 function ProductPage({
   product: {
     data: { id, name, description, imageUrl, price, quantity, userData },

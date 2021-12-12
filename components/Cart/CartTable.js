@@ -4,6 +4,7 @@ import UpdateCart from "../CartActions/UpdateCart";
 import { useRouter } from "next/router";
 import formatCurrency from "../../utils/formatCurrency";
 
+//This component renders what will appear on the cart page
 function CartTable({ cartItems }) {
   const router = useRouter();
 

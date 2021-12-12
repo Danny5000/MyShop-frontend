@@ -1,3 +1,4 @@
+//Renders the pagination buttons and page #
 function Pagination({ handleBack, handleForward, page, isNextPageEmpty }) {
   return (
     <span className="flex items-center pt-4">

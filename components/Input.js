@@ -1,3 +1,4 @@
+//Custom HTML input component
 function Input({ name, placeholder, type, required, value, onChange }) {
   return (
     <input

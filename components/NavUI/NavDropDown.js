@@ -4,6 +4,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 
+//Nav bar drop down menu for profile, order hist and items sold
 const CustomLinkWrapper = React.forwardRef((props, ref) => (
   <div ref={ref} {...props}>
     {props.children}

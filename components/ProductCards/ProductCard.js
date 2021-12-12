@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
+//Renders the product cart on the main page
 function ProductCard({ product }) {
   const userName = product.userData[0]?.userName;
   return (

@@ -1,9 +1,8 @@
 const { useState } = require("react");
-import { useRouter } from "next/router";
 import { useAddToCart } from "../../hooks/cart";
 
+//Logic for the user to add products to their cart
 function AddToCart({ productId }) {
-  const router = useRouter();
   const [quantity, setQuantity] = useState(1);
   const {
     addToCart,

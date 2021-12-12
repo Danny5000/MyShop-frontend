@@ -5,6 +5,7 @@ import { useGetProductsSold } from "../hooks/checkout";
 import ItemsSold from "../components/OrderHistories/ItemsSold";
 import getLocalUser from "../utils/getLocalUser";
 
+//The products sold page for sellers
 function SellerPage() {
   const itemsSold = useGetProductsSold();
   const mySoldProducts = itemsSold?.data?.userData[0].myProductsPurchased;
@@ -12,6 +13,7 @@ function SellerPage() {
   const router = useRouter();
   const user = getLocalUser();
 
+  //If user not logged in, redirect to main page
   useEffect(() => {
     if (!user) {
       router.push("/");

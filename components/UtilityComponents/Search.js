@@ -1,4 +1,6 @@
 import Input from "../Input";
+
+//Renders the product search input
 function Search({ searchValue, handleSearch }) {
   return (
     <div className="pb-6">

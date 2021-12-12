@@ -4,6 +4,7 @@ import DeleteProduct from "../ProductActions/DeleteProduct";
 import UpdateProduct from "../ProductActions/UpdateProduct";
 import { useUser } from "../../hooks/user";
 
+//Renders the product card in the user's profile
 function ProductCardProfile({ product }) {
   const user = useUser();
   const prodData = {

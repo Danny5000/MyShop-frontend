@@ -7,6 +7,7 @@ import Page from "../components/PageTemplates/Page";
 import { useSignIn, useUser } from "../hooks/user";
 import { useEffect } from "react";
 
+//Sign in page
 function SignInPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -24,6 +25,7 @@ function SignInPage() {
     }
   };
 
+  //If user is logged in, redirect to main page
   useEffect(() => {
     if (performance.getEntriesByType("navigation")[0].type !== "reload") {
       if (user) {

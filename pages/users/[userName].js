@@ -3,6 +3,10 @@ import { ApiError } from "../../lib/api";
 import { getUsers, getUserByUserName } from "../../lib/users";
 import ProductCardProfile from "../../components/ProductCards/ProductCard-Profile";
 
+//Renders the profile page for all users
+
+//Create the paths for the user profiles using
+//the unique username
 export async function getStaticPaths() {
   const users = await getUsers();
   return {
@@ -13,6 +17,7 @@ export async function getStaticPaths() {
   };
 }
 
+//Get the user data using the username
 export async function getStaticProps({ params: { userName } }) {
   try {
     const user = await getUserByUserName(userName);
@@ -30,6 +35,7 @@ export async function getStaticProps({ params: { userName } }) {
   }
 }
 
+//Pass the user data here to be rendered onto the page
 function UserPage({ user: { userData } }) {
   return userData.map((element) => (
     <ProfilePage key={element.userName} title={element.userName}>

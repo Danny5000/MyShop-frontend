@@ -5,6 +5,7 @@ import { useGetOrderHistory } from "../hooks/checkout";
 import ItemsPurchased from "../components/OrderHistories/ItemsPurchased";
 import getLocalUser from "../utils/getLocalUser";
 
+//Order history page for buyers
 function orderHistory() {
   const orderHistory = useGetOrderHistory();
   const orderItems = orderHistory?.data?.userData[0]?.orderHistory;
@@ -12,6 +13,7 @@ function orderHistory() {
   const router = useRouter();
   const user = getLocalUser();
 
+  //If user not logged in, redirect to main page
   useEffect(() => {
     if (!user) {
       router.push("/");

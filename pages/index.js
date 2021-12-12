@@ -5,6 +5,7 @@ import Page from "../components/PageTemplates/Page";
 import Pagination from "../components/UtilityComponents/Pagination";
 import Search from "../components/UtilityComponents/Search";
 
+//Renders the index page
 export async function getStaticProps() {
   const products = await getProducts();
   return {
@@ -14,12 +15,14 @@ export async function getStaticProps() {
 }
 
 function HomePage({ products }) {
+  //State for search and pagination
   const [page, setPage] = useState(1);
   const [allProducts, setAllProducts] = useState(products);
   const [isNextPageEmpty, setIsNextPageEmpty] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
   useEffect(async () => {
+    //Render products based on pagination and search inputs
     const products = await getProducts(page, searchValue);
     const nextPage = await getProducts(page + 1, searchValue);
 

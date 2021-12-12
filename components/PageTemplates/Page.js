@@ -1,6 +1,8 @@
 import Head from "next/head";
 import Title from "../Title";
 import NavBar from "../NavUI/NavBar";
+
+//The barebones page template
 function Page({ title, children }) {
   return (
     <>

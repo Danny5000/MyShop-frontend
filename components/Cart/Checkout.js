@@ -5,12 +5,14 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useValidateCart } from "../../hooks/cart";
 import formatCurrency from "../../utils/formatCurrency";
 
+//This component renders what will appear on the checkout page
 function Checkout({ cartItems }) {
   const router = useRouter();
 
   const { stripeCheckout, stripeCheckoutLoading, stripeCheckoutSuccess } =
     useStripeCheckout();
 
+  //Get the hook and state for verifying the cart
   const {
     validateCart,
     validateCartError,
@@ -21,8 +23,10 @@ function Checkout({ cartItems }) {
   const submitHandler = async (e) => {
     e.preventDefault();
 
+    //After clicking submit, run call the validate route
     const validated = await validateCart();
 
+    //If cart is validated, redirect to Stripe checkout session
     if (validated) {
       const res = await stripeCheckout();
       const stripe = await loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_KEY}`);

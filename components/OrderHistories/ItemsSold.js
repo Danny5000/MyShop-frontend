@@ -3,6 +3,7 @@ import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/solid";
 import formatCurrency from "../../utils/formatCurrency";
 
+//Renders the items sold page for sellers
 function ItemsSold({ orders }) {
   return (
     <div className="flex flex-col pl-2 place-items-center">

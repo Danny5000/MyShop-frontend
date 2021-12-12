@@ -7,6 +7,7 @@ import { useSignUp, useUser } from "../hooks/user";
 import { useEffect } from "react";
 import notify from "../utils/toasts";
 
+//Sign in page
 function SignInPage() {
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -41,6 +42,7 @@ function SignInPage() {
     }
   };
 
+  //If user is logged in, redirect to main page
   useEffect(() => {
     if (performance.getEntriesByType("navigation")[0].type !== "reload") {
       if (user) {

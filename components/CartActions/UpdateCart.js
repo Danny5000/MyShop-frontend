@@ -1,10 +1,12 @@
 const { useState } = require("react");
 import { useUpdateCart } from "../../hooks/cart";
 
+//Logic for user to update their cart
 function UpdateCart({ productId, quantity }) {
   const [itemQuantity, setItemQuantity] = useState(quantity);
   const { updateCart, updateCartError, errMessage } = useUpdateCart();
 
+  //Upate the quantity on the back-end dynamically
   const handleChange = async (e) => {
     setItemQuantity(parseInt(e.target.value));
     await updateCart(productId, parseInt(e.target.value));

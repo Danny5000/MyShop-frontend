@@ -3,6 +3,8 @@ import Page from "../../components/PageTemplates/Page";
 import { useUser } from "../../hooks/user";
 import { useStripeSuccess } from "../../hooks/stripe";
 
+//The page that Stripe will redirect to after
+//a successful checkout session
 const StripeSuccess = () => {
   const user = useUser();
 

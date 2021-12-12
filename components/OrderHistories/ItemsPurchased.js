@@ -1,6 +1,7 @@
 import Link from "next/link";
 import formatCurrency from "../../utils/formatCurrency";
 
+//Renders the order history page
 function ItemsPurchased({ orders }) {
   return (
     <div className="flex flex-col pl-2 place-items-center">

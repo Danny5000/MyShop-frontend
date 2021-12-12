@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import getLocalUser from "../utils/getLocalUser";
 
+//The checkout page
 function CartPage() {
   const cartItems = useGetCart();
   const user = useUser();

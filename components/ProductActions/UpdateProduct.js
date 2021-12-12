@@ -5,6 +5,7 @@ import { useUpdateProduct } from "../../hooks/product";
 import Field from "../Field";
 import Input from "../Input";
 
+//Styles for the update product modal
 const customStyles = {
   content: {
     top: "30%",
@@ -18,6 +19,7 @@ const customStyles = {
 
 Modal.setAppElement("#__next");
 
+//Logic for updating a product
 function UpdateProduct({ productId, productData }) {
   const {
     updateProduct,

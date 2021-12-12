@@ -1,5 +1,6 @@
 import { useDeleteItemFromCart } from "../../hooks/cart";
 
+//Logic for the user to delete from their cart
 function DeleteFromCart({ productId }) {
   const { removeFromCart, deleteFromCartLoading } = useDeleteItemFromCart();
 

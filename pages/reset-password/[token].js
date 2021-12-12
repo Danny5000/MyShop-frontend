@@ -7,6 +7,8 @@ import { useResetPassword } from "../../hooks/resetPassword";
 import notify from "../../utils/toasts";
 import { useUser } from "../../hooks/user";
 
+//The page that will be rendered after a user
+//clicks the reset link in their email
 function ResetPassword() {
   const router = useRouter();
   const user = useUser();

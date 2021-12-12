@@ -3,6 +3,7 @@ import Page from "../../components/PageTemplates/Page";
 import { useUser } from "../../hooks/user";
 import { useManageAccount } from "../../hooks/stripe";
 
+//The page a successful Stripe onboarding will redirect to
 const StripeCallback = () => {
   const user = useUser();
 

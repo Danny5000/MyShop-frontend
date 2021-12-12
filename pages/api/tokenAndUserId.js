@@ -1,5 +1,7 @@
 import jwt from "jsonwebtoken";
 
+//Get the token from the cookie and the
+//user id from the token
 function getTokenAndUserID(req, res) {
   const { token } = req.cookies;
 
