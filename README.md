@@ -16,7 +16,17 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 - NEXT_PUBLIC_STRIPE_KEY=Your stripe public key. You must register with Stripe first, navigate to your user panel and copy this stripe public key here.
 
-First, run the development server:
+**Install the dependencies for the project**
+
+Type
+
+```
+npm i
+```
+
+in the console in the root directory of the project.
+
+Run the development server:
 
 ```bash
 npm run dev
