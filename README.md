@@ -4,7 +4,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 **You must first download Node.js run this project on your local machine**
 
-# Before running the server create the file .env.local in the root directory of this project with the following enviornment variables
+### Before running the server create the file .env.local in the root directory of this project with the following enviornment variables
 
 - API_URL=http://localhost:3001/api/v1
 - IMG_URL=http://localhost:3001/images
